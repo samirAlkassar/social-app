@@ -35,9 +35,18 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 // app.use(cors());
 app.use("/assets",express.static(path.join(__dirname, "public/assets")));
 
+// cors setup
+const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:3000"];
+
 app.use(cors({
-  origin: "https://mawja.vercel.app", // Next.js dev server
-  credentials: true,              // allow cookies
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
 }));
 
 
