@@ -36,18 +36,14 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use("/assets",express.static(path.join(__dirname, "public/assets")));
 
 // cors setup
-const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:3000"];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-}));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 
 // Routes with files
