@@ -35,15 +35,10 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 // app.use(cors());
 app.use("/assets",express.static(path.join(__dirname, "public/assets")));
 
-// cors setup
-
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors({
+  origin: "https://mawja.vercel.app", // Next.js dev server
+  credentials: true,              // allow cookies
+}));
 
 
 // Routes with files
