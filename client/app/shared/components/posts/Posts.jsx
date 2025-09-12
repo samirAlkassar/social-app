@@ -49,6 +49,7 @@ export const Posts = ({data, pagination, limit}) => {
           "Authorization": `Bearer ${token?.value}`, 
         },
         body: formData,
+        cache: "no-store" 
       });
 
       if (!res.ok) {
