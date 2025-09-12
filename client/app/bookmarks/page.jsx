@@ -20,7 +20,7 @@ const Bookmarks = () => {
         try {
             setLoadingBookmarks(true);
             const token = await getCookies("token");
-            const res = await fetch(`http://localhost:3001/users/bookmarks`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/bookmarks`, {
                 method: "GET",
                 headers: {
                 "Content-Type": "application/json",

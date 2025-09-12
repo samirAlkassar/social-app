@@ -23,7 +23,7 @@ export function UserProvider({ children }) {
           return;
         }
 
-        const res = await fetch("http://localhost:3001/users/me", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

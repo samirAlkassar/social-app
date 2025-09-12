@@ -12,7 +12,7 @@ export function FriendsProvider({ children }) {
     const toggleAddFriend = async (friendId,userId) => {
         try {
         const token = await getCookies("token");
-        const res = await fetch(`http://localhost:3001/users/${userId}/${friendId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}/${friendId}`, {
             method: "PATCH",
             headers: {
             "Content-Type": "application/json",

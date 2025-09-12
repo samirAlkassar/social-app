@@ -20,7 +20,7 @@ const Comment = ({comment, likeComment, user}) => {
         try {
             const token = await getCookies("token");
 
-            const res = await fetch(`http://localhost:3001/posts/comments/${commentId}/replies`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/comments/${commentId}/replies`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

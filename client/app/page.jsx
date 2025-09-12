@@ -5,7 +5,7 @@ const limit = 10;
 
 const fetchPosts = async () => {
   try{
-    const response = await fetch(`http://localhost:3001/posts?limit=${limit}&page=1`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts?limit=${limit}&page=1`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

@@ -24,7 +24,7 @@ export const UserFeed = () => {
     try {
         const token = await getCookies("token");
         const response = await fetch(
-        `http://localhost:3001/posts/${user._id}/posts?limit=${limit}&page=${pageNum}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/posts/${user._id}/posts?limit=${limit}&page=${pageNum}`,
         {
             method: "GET",
             headers: {

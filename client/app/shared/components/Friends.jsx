@@ -21,7 +21,7 @@ export function FriendsSection() {
                 alert("You must be logged in to post.");
                 return;
                 }
-            const response = await fetch(`http://localhost:3001/users/${id}/friends`,{
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}/friends`,{
                 method: "GET",
                 headers: {
                   "Authorization": `Bearer ${token?.value}`, 

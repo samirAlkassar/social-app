@@ -62,7 +62,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
       try {
         setLoadingComments(true)
         const token = await getCookies("token");
-        const res = await fetch(`http://localhost:3001/posts/${postId}/comments?page=${commentPage}&limit=5`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}/comments?page=${commentPage}&limit=5`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json", 
@@ -94,7 +94,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
       try {
         const token = await getCookies("token");
 
-        const res = await fetch(`http://localhost:3001/posts/comments/${commentId}/like`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/comments/${commentId}/like`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
             setLoadingLikes(true)
             const token = await getCookies("token");
 
-            const res = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}/like`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
@@ -159,7 +159,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
       try {
         setLoadingDeletPost(true)
         const token = await getCookies("token")
-        const res = await fetch(`http://localhost:3001/posts/${userId}/${postId}`,{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${userId}/${postId}`,{
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -197,7 +197,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
     const toggleBookmark = async (userId, postId) => {
        try {
         const token = await getCookies("token")
-        const res = await fetch(`http://localhost:3001/users/bookmarks/${userId}/${postId}`,{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/bookmarks/${userId}/${postId}`,{
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -220,7 +220,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
       try {
         const token = await getCookies("token");
 
-        const res = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}/like`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -251,7 +251,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
     const addComment = async (postId, comment) => {
       try {
       const token = await getCookies("token");
-      const res = await fetch(`http://localhost:3001/posts/${postId}/comment`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}/comment`, {
         method: "PATCH",
         headers: {
         "Content-Type": "application/json", 

@@ -1,9 +1,6 @@
 "use client"
-
-import React, {useState, useEffect, useContext} from "react";
+import React from "react";
 import deleteCookies from "@/app/actions/deleteCookies";
-import getCookies from "@/app/actions/getCookies";
-import Link from "next/link";
 import { useUserContext } from "@/app/context/useUser"; 
 import { Search, Sun, Moon, MessageCircle, Bell, ChevronDown, HelpCircle, LogOut, LogIn, UserPlus } from "lucide-react";
 import { useRouter } from "next/navigation";

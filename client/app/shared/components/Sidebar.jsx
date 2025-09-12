@@ -10,7 +10,7 @@ export const ProfileSection = ({currentUser}) => {
       <div className="relative p-1">
         <div className='relative w-full h-32'>
           <Image 
-            src={currentUser?.panner ? `http://localhost:3001/assets/${currentUser.panner}` : "https://i.pinimg.com/1200x/37/c6/8f/37c68ff0d0b664704990c337f9cddf4b.jpg"}
+            src={currentUser?.panner ? `${process.env.NEXT_PUBLIC_API_URL}/assets/${currentUser.panner}` : "https://i.pinimg.com/1200x/37/c6/8f/37c68ff0d0b664704990c337f9cddf4b.jpg"}
             alt="Cover"
             className="w-full object-cover rounded-lg"
             fill

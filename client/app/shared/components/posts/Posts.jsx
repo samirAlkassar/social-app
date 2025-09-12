@@ -43,7 +43,7 @@ export const Posts = ({data, pagination, limit}) => {
         formData.append("image", imagePath);        
       }
 
-      const res = await fetch("http://localhost:3001/posts", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token?.value}`, 
@@ -76,7 +76,7 @@ export const Posts = ({data, pagination, limit}) => {
     try {
         setLoadingPosts(true);
         const token = await getCookies("token");
-        const res = await fetch(`http://localhost:3001/posts?${limit}&page=${page+1}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts?${limit}&page=${page+1}`, {
             method: "GET",
             headers: {
             "Content-Type": "application/json",
@@ -113,16 +113,6 @@ export const Posts = ({data, pagination, limit}) => {
     },
     offset: 100,
   });
-
-
-
-
-
-
-  
-
-
-
 
 
   return (
