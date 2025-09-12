@@ -7,7 +7,7 @@ export default async function setCookies(name, value) {
         const setCookies = await cookies();
         setCookies.set(name, value, {
             httpOnly: true,
-            secure: process.env.MODE_ENV === "production",
+            secure: process.env.NEXT_PUBLIC_API_URL === "production",
             maxAge: 60 * 60 * 24 * 7, // 7 days
             sameSite: "lax",
             path: "/"
