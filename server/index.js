@@ -36,9 +36,12 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use("/assets",express.static(path.join(__dirname, "public/assets")));
 
 app.use(cors({
-  origin: "*"
+  origin: [
+    "http://localhost:3000", 
+    "https://mawja.vercel.app" // ✅ your deployed frontend
+  ],
+  credentials: true
 }));
-
 
 // Routes with files
 app.post("/auth/register", upload.single("image"), register);
