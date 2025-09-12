@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useUserContext } from "@/app/context/useUser"; 
 import {UserFeed} from "@/app/shared/components/UserFeed";
 import { Mail, Phone, MapPin, Calendar, Edit3, Save, X, Camera, Palette, Shield, Bell, Eye, Moon, Sun, Monitor,Globe} from 'lucide-react';
+export const dynamic = "force-dynamic";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
