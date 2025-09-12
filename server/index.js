@@ -36,12 +36,7 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use("/assets",express.static(path.join(__dirname, "public/assets")));
 
 app.use(cors({
-  origin: [
-    "https://mawja.vercel.app",  // production
-    "http://localhost:3000",    // development
-    "http://localhost:3001",    // alternative dev port
-  ],
-  credentials: true,
+  origin: "*"
 }));
 
 
@@ -63,7 +58,7 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true,
     }
 ).then(()=>{
-    app.listen(PORT, ()=> console.log(`server port: http://localhost:/${PORT} 🟢`));
+    app.listen(PORT, ()=> console.log(`server port: /${PORT} 🟢`));
 
     // ADD DATA ONE TIME
     // User.insertMany(users);
