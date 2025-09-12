@@ -45,7 +45,7 @@ export const ProfileSection = ({currentUser}) => {
         <p className="text-gray-700 mb-6">user bio</p>
           <div className="flex gap-2">
             <button className="flex items-center justify-center w-full gap-2 px-3 py-2 text-sm hover:bg-neutral-800 bg-neutral-700 cursor-pointer text-white rounded-lg transition-all duration-300"><Edit3 size={16}/>Edit</button>
-            <button onClick={()=>{window.location.href = `/profile/${currentUser?.firstName}_${currentUser?.firstName}`}} className="flex items-center justify-center w-full gap-2 px-3 py-2 text-sm hover:bg-neutral-800 bg-neutral-700 cursor-pointer text-white rounded-lg transition-all duration-300"><Eye size={16}/>view</button>
+            <button onClick={()=>{window.location.href = `/profile/${currentUser?.firstName}_${currentUser?.lastName}`}} className="flex items-center justify-center w-full gap-2 px-3 py-2 text-sm hover:bg-neutral-800 bg-neutral-700 cursor-pointer text-white rounded-lg transition-all duration-300"><Eye size={16}/>view</button>
           </div>
         {/* Stats */}
         <div className="flex justify-between items-center p-4 bg-gray-50 rounded-xl mb-6">
