@@ -36,8 +36,12 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use("/assets",express.static(path.join(__dirname, "public/assets")));
 
 app.use(cors({
-  origin: "https://mawja.vercel.app", // Next.js dev server
-  credentials: true,              // allow cookies
+  origin: [
+    "https://mawja.vercel.app",  // production
+    "http://localhost:3000",    // development
+    "http://localhost:3001",    // alternative dev port
+  ],
+  credentials: true,
 }));
 
 
