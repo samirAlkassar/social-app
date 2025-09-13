@@ -127,7 +127,7 @@ const Comment = ({comment, likeComment, user}) => {
                     
                     {(comment?.replies || []).map((reply, index) => (
                         <div key={index} className="flex items-start gap-2 rounded-lg p-2">
-                            <div className="relative min-h-8 min-w-8 overflow-hidden rounded-full border border-neutral-300">
+                            <div className="relative min-h-8 min-w-8 overflow-hidden rounded-full border border-border">
                                 <img
                                     src={reply.userPicturePath || "./images/profile-avatar-notfound.jpg"}
                                     alt={reply.firstName ? `${reply.firstName} ${reply.lastName}` : "User"}
@@ -144,7 +144,7 @@ const Comment = ({comment, likeComment, user}) => {
                                             : ""}
                                     </span>
                                 </div>
-                                <p className="text-sm text-neutral-700">{reply.comment}</p>
+                                <p className="text-sm text-text">{reply.comment}</p>
 
                                 <div className="flex gap-4 items-center mt-2">
                                     <button

@@ -134,8 +134,9 @@ export const Posts = ({data, pagination, limit}) => {
 
           {/* Create Post Card */}
           
-          {loading? <CreatPostSkeleton /> : user ? <div className="bg-card/80 backdrop-blur-md border border-border/50 sm:rounded-2xl p-6 shadow-sm mb-6">
-            <div className="flex items-center gap-3 mb-4">
+          {loading? <CreatPostSkeleton /> : user ? 
+          <div className="bg-card/80 backdrop-blur-md border border-border/50 sm:rounded-2xl sm:px-6 px-4 sm:py-6 py-2 sm:pt-6 pt-4 shadow-sm mb-6">
+            <div className="flex items-start gap-3 mb-4">
               
               {loading? 
               <div className="w-10 h-10 rounded-full border border-neutral-300/60 bg-neutral-300 animate-pulse" /> :

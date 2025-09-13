@@ -11,27 +11,31 @@ const PostActions = ({deletePost, loadingDeletPost, post, toggleAddFriend, toggl
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
 
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (
-          menuRef.current &&
-          !menuRef.current.contains(event.target) &&
-          !buttonRef.current.contains(event.target)
-        ) {
-          setShowPostActionsMenu(false);
-        }
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setShowPostActionsMenu(false);
       }
+    }
 
-      if (showPostActionsMenu) {
-        document.addEventListener("mousedown", handleClickOutside);
-      } else {
-        document.removeEventListener("mousedown", handleClickOutside);
-      }
+    if (showPostActionsMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = "hidden"; // ✅ prevent scrolling
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = ""; // ✅ restore scroll
+    }
 
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    },  [showPostActionsMenu]);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = ""; // ✅ cleanup
+    };
+  }, [showPostActionsMenu]);
+
     
     return (
         <>
@@ -84,7 +88,7 @@ const PostActionsMenu = ({menuRef, showPostActionsMenu, setShowPostActionsMenu, 
   return (
  
         <div ref={menuRef}
-          className={`bg-card border border-border shadow-lg w-70 sm:w-60 sm:absolute sm:top-16 sm:right-6 rounded-lg z-10 flex flex-col 
+          className={`bg-card border border-border shadow-lg w-60 sm:absolute sm:top-16 sm:right-6 rounded-lg z-10 flex flex-col 
               transform transition-all duration-200 ease-out origin-top-right
               ${showPostActionsMenu
               ? "opacity-100 scale-100"
@@ -93,26 +97,26 @@ const PostActionsMenu = ({menuRef, showPostActionsMenu, setShowPostActionsMenu, 
           >
             
           {post?.userId !== user?._id && <button onClick={()=>{toggleAddFriend(post?.userId,user?._id) && setShowPostActionsMenu(false)}}
-              className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-5 hover:bg-secondary transition-all duration-75 ease-in rounded-t-lg">
+              className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-secondary transition-all duration-75 ease-in rounded-t-lg">
               {user?.frinds?.some(fr => (typeof fr === "string" ? fr : fr._id) === post?.userId) ? "Unfriend" : "Add friend"}
           </button>}
 
           {post?.userId === user?._id && <button
-              className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-5 hover:bg-secondary transition-all duration-75 ease-in rounded-t-lg">
+              className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-secondary transition-all duration-75 ease-in rounded-t-lg">
               Edit
           </button>}
 
           <button onClick={()=>{toggleBookmark(user?._id, post?._id) && setShowPostActionsMenu(false)}}
-              className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-5 hover:bg-secondary transition-all duration-75 ease-in">
+              className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-secondary transition-all duration-75 ease-in">
               {bookmarks.some(fr => (typeof fr === "string" ? fr : fr._id) === post?._id) ? "unsave" : "save"}
           </button>
-          <button className="text-text bg-card cursor-pointer active:scale-[98%] py-3 hover:bg-secondary transition-all duration-75 ease-in">
+          <button className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-secondary transition-all duration-75 ease-in">
               Add to favourite
           </button>
 
           {post?.userId === user?._id && 
           <button onClick={deletePost}
-                  className="text-red bg-card cursor-pointer active:scale-[98%] sm:py-3 py-5 hover:hover:bg-red/10 transition-all duration-75 ease-in">
+                  className="text-red bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:hover:bg-red/10 transition-all duration-75 ease-in">
               {loadingDeletPost? 
                   <span className="flex items-center justify-center gap-2">
                       Delete
@@ -122,10 +126,10 @@ const PostActionsMenu = ({menuRef, showPostActionsMenu, setShowPostActionsMenu, 
                       </svg>
                   </span>
                   : "Delete"} </button>}
-          <button className="text-red bg-card cursor-pointer active:scale-[98%] sm:py-3 py-5 hover:bg-red/10 transition-all duration-75 ease-in rounded-b-lg">
+          <button className="text-red bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-red/10 transition-all duration-75 ease-in rounded-b-lg">
               Report
           </button>
-          <button onClick={()=>{setShowPostActionsMenu(false)}} className="text-text sm:hidden block bg-card cursor-pointer active:scale-[98%] sm:py-3 py-5 hover:bg-red/10 transition-all duration-75 ease-in rounded-b-lg">
+          <button onClick={()=>{setShowPostActionsMenu(false)}} className="text-text sm:hidden block bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-red/10 transition-all duration-75 ease-in rounded-b-lg">
               Cancel
           </button>
       </div>
