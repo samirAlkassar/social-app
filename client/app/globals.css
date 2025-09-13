@@ -31,7 +31,7 @@
   --primary: #3b82f6;
   --primary-hover: #2563eb;
   --secondary: #141C29;
-  --secondary-hover: #262626;
+  --secondary-hover: rgb(35, 35, 39);
   --accent: #10b981;
   --accent-hover: #059669;
 }

@@ -23,7 +23,7 @@ const fetchPosts = async () => {
 export default async function Home() {
   const data = await fetchPosts();
   return (
-    <div className="bg-background">
+    <div className="bg-background transition-colors duration-100">
       <Navbar />
       <Posts data={data?.posts} pagination={data?.pagination} limit={limit}/>
     </div>

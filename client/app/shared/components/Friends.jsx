@@ -50,7 +50,7 @@ export function FriendsSection() {
             <Users className="w-6 h-6 text-text" />
             Friends & Active
           </h2>
-          <button className="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+          <button className="p-2 hover:bg-secondary rounded-lg transition-colors">
             <Search className="w-5 h-5 text-text" />
           </button>
         </div>
@@ -80,7 +80,7 @@ export function FriendsSection() {
 }
 
 const FriendsItem = ({ friend }) => (
-  <div className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-xl transition-colors">
+  <div className="flex items-center justify-between p-2 hover:bg-secondary rounded-xl transition-colors">
     <div className="flex items-center gap-2">
       <div className="relative">
         <img

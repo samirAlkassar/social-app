@@ -124,7 +124,7 @@ export const Posts = ({data, pagination, limit}) => {
         {/* Header */}
         <div className="md:px-4 px-0 flex-2 max-w-2xl">
           <div className="md:mb-8 mb-2 md:px-0 px-2">
-            <h1 className="md:text-3xl text-2xl font-semibold text-text tracking-tight md:mb-2 mb-0">
+            <h1 className="md:text-3xl text-2xl font-semibold text-primary tracking-tight md:mb-2 mb-0">
               Latest Posts
             </h1>
             <p className="text-text/80 md:text-base text-sm">

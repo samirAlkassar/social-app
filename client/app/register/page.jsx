@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Dropzone from "react-dropzone";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-
+import ThemeButton from "../shared/ui/ThemeButton";
 
 
 const RegisterForm = () => {
@@ -55,19 +55,20 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-neutral-50 to-neutral-100 p-4">
-      <div className="w-full max-w-md p-8 rounded-2xl shadow-sm bg-white/80 backdrop-blur-md border border-neutral-200/50">
+    <div className="flex items-center justify-center min-h-screen bg-background p-4">
+      <div className="w-full max-w-md p-8 rounded-2xl shadow-sm bg-card backdrop-blur-md border border-border">
+        <ThemeButton />
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-semibold text-neutral-900 tracking-tight">
+          <h2 className="text-2xl font-semibold text-text tracking-tight">
             Create account
           </h2>
-          <p className="text-sm text-neutral-600 mt-2">Join us today</p>
+          <p className="text-sm text-text mt-2">Join us today</p>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-3">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
+              <label className="block text-sm font-medium text-text mb-2">
                 First Name
               </label>
               <input
@@ -77,12 +78,12 @@ const RegisterForm = () => {
                 autoComplete="given-name"
                 onChange={handleChange}
                 value={form.firstName}
-                className="w-full px-4 py-3 rounded-xl bg-neutral-50 border border-neutral-200/60 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 rounded-xl bg-secondary border border-border text-text placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all duration-200"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
+              <label className="block text-sm font-medium text-text mb-2">
                 Last Name
               </label>
               <input
@@ -92,14 +93,14 @@ const RegisterForm = () => {
                 autoComplete="family-name"
                 onChange={handleChange}
                 value={form.lastName}
-                className="w-full px-4 py-3 rounded-xl bg-neutral-50 border border-neutral-200/60 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 rounded-xl bg-secondary border border-border text-text placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all duration-200"
                 required
               />
             </div>
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-neutral-700 mb-2">
+            <label className="block text-sm font-medium text-text mb-2">
               Email address
             </label>
             <input
@@ -108,13 +109,13 @@ const RegisterForm = () => {
               placeholder="john@example.com"
               onChange={handleChange}
               value={form.email}
-              className="w-full px-4 py-3 rounded-xl bg-neutral-50 border border-neutral-200/60 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-3 rounded-xl bg-secondary border border-border text-text placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all duration-200"
               required
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-neutral-700 mb-2">
+            <label className="block text-sm font-medium text-text mb-2">
               Password
             </label>
             <input
@@ -123,14 +124,14 @@ const RegisterForm = () => {
               placeholder="Create a strong password"
               onChange={handleChange}
               value={form.password}
-              className="w-full px-4 py-3 rounded-xl bg-neutral-50 border border-neutral-200/60 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-3 rounded-xl bg-secondary border border-border text-text placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all duration-200"
               required
             />
           </div>
           
           {/* Profile Picture Upload */}
           <div>
-            <label className="block text-sm font-medium text-neutral-700 mb-2">
+            <label className="block text-sm font-medium text-text mb-2">
               Profile Picture
             </label>
             <Dropzone
@@ -141,7 +142,7 @@ const RegisterForm = () => {
               {({ getRootProps, getInputProps }) => (
                 <div
                   {...getRootProps()}
-                  className="border-2 border-dashed border-neutral-300 hover:border-neutral-400 p-6 rounded-xl text-center cursor-pointer transition-all duration-200 bg-neutral-50/50 hover:bg-neutral-50"
+                  className="border-2 border-dashed border-border hover:border-neutral-400 p-6 rounded-xl text-center cursor-pointer transition-all duration-200 bg-secondary/50 hover:bg-secondary"
                 >
                   <input {...getInputProps()} name="image" />
                   {picture ? (
@@ -149,18 +150,18 @@ const RegisterForm = () => {
                       <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className="text-sm font-medium text-neutral-700">{picture.name}</span>
+                      <span className="text-sm font-medium text-text">{picture.name}</span>
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <svg className="w-8 h-8 text-neutral-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-8 h-8 text=text-muted mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                       <div>
-                        <p className="text-sm text-neutral-600">
-                          <span className="font-medium text-neutral-900">Click to upload</span> or drag and drop
+                        <p className="text-sm text-text">
+                          <span className="font-medium text-text">Click to upload</span> or drag and drop
                         </p>
-                        <p className="text-xs text-neutral-500">PNG, JPG up to 10MB</p>
+                        <p className="text-xs text-text-muted">PNG, JPG up to 10MB</p>
                       </div>
                     </div>
                   )}
@@ -181,7 +182,7 @@ const RegisterForm = () => {
                 <button
                   type="button"
                   onClick={() => setPicture(null)}
-                  className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
+                  className="absolute -top-2 -right-2 w-6 h-6 bg-red text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
                 >
                   ×
                 </button>
@@ -195,15 +196,15 @@ const RegisterForm = () => {
               type="checkbox"
               id="terms"
               required
-              className="w-4 h-4 mt-0.5 text-neutral-600 bg-neutral-50 border-neutral-300 rounded focus:ring-neutral-300"
+              className="w-4 h-4 mt-0.5 text-text bg-secondary border-neutral-300 rounded focus:ring-neutral-300"
             />
-            <label htmlFor="terms" className="text-sm text-neutral-600">
+            <label htmlFor="terms" className="text-sm text-text-muted">
               I agree to the{" "}
-              <a href="#" className="font-medium text-neutral-900 hover:text-neutral-700 underline underline-offset-4">
+              <a href="#" className="font-medium text-text/90 hover:text-text underline underline-offset-4">
                 Terms of Service
               </a>{" "}
               and{" "}
-              <a href="#" className="font-medium text-neutral-900 hover:text-neutral-700 underline underline-offset-4">
+              <a href="#" className="font-medium text-text/90 hover:text-text underline underline-offset-4">
                 Privacy Policy
               </a>
             </label>
@@ -212,7 +213,7 @@ const RegisterForm = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-4 bg-neutral-900 hover:bg-neutral-800 disabled:bg-neutral-400 rounded-xl text-white font-medium transition-all duration-200 transform hover:translate-y-[-1px] hover:shadow-lg disabled:hover:translate-y-0 disabled:hover:shadow-none"
+            className="w-full py-3 px-4 bg-primary hover:bg-primary-hover cursor-pointer disabled:bg-primary/60 rounded-xl text-white font-medium transition-all duration-200 transform hover:translate-y-[-1px] hover:shadow-lg disabled:hover:translate-y-0 disabled:hover:shadow-none"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -229,11 +230,11 @@ const RegisterForm = () => {
         </form>
         
         <div className="mt-6 text-center">
-          <p className="text-neutral-600 text-sm">
+          <p className="text-text text-sm">
             Already have an account?{" "}
             <a 
               href="/login" 
-              className="font-medium text-neutral-900 hover:text-neutral-700 transition-colors underline underline-offset-4"
+              className="font-medium text-text hover:text-text transition-colors underline underline-offset-4"
             >
               Sign in
             </a>
@@ -244,15 +245,15 @@ const RegisterForm = () => {
         <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-neutral-200"></div>
+              <div className="w-full border-t border-border"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-neutral-500">Or register with</span>
+              <span className="px-2 bg-secondary text-text-muted">Or register with</span>
             </div>
           </div>
           
           <div className="mt-4 grid grid-cols-2 gap-3">
-            <button className="flex items-center justify-center px-4 py-2.5 border border-neutral-200 rounded-xl bg-white hover:bg-neutral-50 text-sm font-medium text-neutral-700 transition-all duration-200">
+            <button className="flex items-center justify-center px-4 py-2.5 cursor-pointer border border-border rounded-xl bg-secondary hover:bg-secondary-hover text-sm font-medium text-text transition-all duration-200">
               <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -262,7 +263,7 @@ const RegisterForm = () => {
               Google
             </button>
             
-            <button className="flex items-center justify-center px-4 py-2.5 border border-neutral-200 rounded-xl bg-white hover:bg-neutral-50 text-sm font-medium text-neutral-700 transition-all duration-200">
+            <button className="flex items-center justify-center px-4 py-2.5 border cursor-pointer border-border rounded-xl bg-secondary  hover:bg-secondary-hover text-sm font-medium text-text transition-all duration-200">
               <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.024-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.120.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
               </svg>
@@ -275,4 +276,4 @@ const RegisterForm = () => {
   );
 };
 
-export default dynamic(() => Promise.resolve(RegisterForm), { ssr: false });
+export default dynamic(() => Promise.resolve(RegisterForm), { ssr: true });

@@ -286,7 +286,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
         {/* Post Header */}
         <div className="flex items-center justify-between sm:mb-4 mb-2 px-2 sm:px-0">
             <div className="flex items-center gap-3 ">
-              <div className="relative w-10 h-10 rounded-full border border-neutral-200/60">
+              <div className="relative w-10 h-10 rounded-full border border-border">
                 <img
                     src={post.userPicturePath ? post?.userPicturePath : "/images/profile-avatar-notfound.jpg"}
                     alt={`${post.firstName} ${post.lastName}`}
@@ -345,7 +345,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
         </div>
 
         {/* Post Actions */}
-        <div className="flex items-center justify-between pt-3 border-t border-neutral-200/50">
+        <div className="flex items-center justify-between pt-3 border-t border-border">
             <div className="grid grid-cols-3 ">
               <LikeButton disabled={UserExist} onClick={likePost} likes={likes}/>
               
@@ -373,12 +373,12 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
             </button>
         </div>
         {showPostBottomMenu && <div className="mt-4">
-          <div className="flex gap-4 border-b border-neutral-200 pb-1">
+          <div className="flex gap-4 border-b border-border pb-1">
             <button 
-            className={`p-1 rounded-md active:scale-95 w-26 text-center cursor-pointer ${showComments? "bg-neutral-100 text-text " : "bg-neutral-50 text-text"}`}
+            className={`p-1 rounded-md active:scale-95 w-26 text-center cursor-pointer ${showComments? "bg-secondary text-text " : "bg-transparent border border-border/60 text-text"}`}
             onClick={()=>{getComments(post?._id, commentPage); setShowLikes(false); setShowComments(!showComments)}}>Comments</button>
             <button 
-            className={`p-1 rounded-md active:scale-95 w-26 cursor-pointer ${showLikes? "bg-neutral-100 text-text" : "bg-neutral-50 text-text/90"}`}
+            className={`p-1 rounded-md active:scale-95 w-26 cursor-pointer ${showLikes? "bg-secondary text-text " : "bg-transparent border border-border/60 text-text"}`}
             onClick={()=>{getLikes(post?._id); setShowComments(false); setShowLikes(true)}}>Likes</button>
           </div>
            {showComments && 
@@ -430,7 +430,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
               {likes.map((like)=>(
                 <div key={like._id} className="flex gap-2 items-center">
                   <div className="relative h-8 w-8 rounded-full border border-neutral-400 overflow-clip">
-                    <img src={like.picturePath} 
+                    <img src={`${like.picturePath}` ? `${like.picturePath}` : "/images/profile-avatar-notfound.jpg"} 
                           alt="user image"
                           className="absolute w-full h-full object-fill" />
                   </div>
@@ -472,7 +472,7 @@ export const AddCommentForm = ({commentText, setCommentText, onClick, disabled, 
             placeholder="Add a comment..."
             className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-text-muted placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-text/20 focus:border-transparent transition-all duration-200 text-sm"
         />
-        <button disabled={disabled} onClick={onClick} className="px-3 py-2 cursor-pointer bg-neutral-900 hover:bg-neutral-800 disabled:bg-neutral-400 disabled:cursor-not-allowed text-text rounded-xl font-medium transition-all duration-200">{loadingNewComment? "Post..." : "Post"}</button>
+        <button disabled={disabled} onClick={onClick} className="px-3 py-1.5 cursor-pointer bg-foreground hover:bg-foreground/80 disabled:bg-neutral-400 disabled:cursor-not-allowed text-border-muted rounded-xl font-medium transition-all duration-200">{loadingNewComment? "Post..." : "Post"}</button>
     </div>
     )
 }

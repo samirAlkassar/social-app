@@ -65,7 +65,7 @@ const Comment = ({comment, likeComment, user}) => {
 
         
     return (
-        <div className="ml-4 border-l pl-2 border-neutral-300 flex gap-2 py-2">
+        <div className="ml-4 border-l pl-2 border-border flex gap-2 py-2">
             <div className="relative h-8 w-8 overflow-hidden rounded-full border-1 border-neutral-500">
                 <img
                     src={comment.userPicturePath || "./images/profile-avatar-notfound.jpg"}
@@ -78,22 +78,22 @@ const Comment = ({comment, likeComment, user}) => {
                     <p className="text-sm font-semibold">
                         {comment?.firstName} {comment?.lastName}
                     </p>
-                    <p className="text-xs text-neutral-500">
+                    <p className="text-xs text-text-muted">
                         {formatTimeAgo(comment.createdAt)}
                     </p>
                 </div>
-                <p className="text-sm text-neutral-800">{comment?.comment}</p>
+                <p className="text-sm text-text">{comment?.comment}</p>
                 <div className="flex gap-4 items-center mt-2">
                     <button
                         className={`flex gap-1 items-center justify-center cursor-pointer ${
                             comment.likes && user && comment.likes[user._id]
-                                ? "text-red-500"
-                                : "text-neutral-400"
+                                ? "text-red"
+                                : "text-text-muted"
                         }`}
                         onClick={user && toggleLikeComment}
                     >
                         <Heart size={16} className={"fill-current"} />
-                        <p className="text-xs text-neutral-600 min-w-2">
+                        <p className="text-xs text-text min-w-2">
                             {(Object.keys(comment?.likes || {}).length) > 0 ? (Object.keys(comment?.likes || {}).length) : ""}
                         </p>
                     </button>
@@ -101,16 +101,16 @@ const Comment = ({comment, likeComment, user}) => {
                     <button
                         onClick={() => {user && setShowReplayForm(!showReplayForm)}}
                         className="flex gap-1 items-center justify-center cursor-pointer">
-                        <Reply size={16} className="text-neutral-600" />
-                        <p className="text-xs text-neutral-600">Reply</p>
+                        <Reply size={16} className="text-text" />
+                        <p className="text-xs text-text">Reply</p>
                     </button>
                 </div>
                 
                 {(Object.keys(comment?.replies || {}).length) !== 0 &&
                 <button onClick={()=>{setShowReplay(!showReplay); showReplayForm && setShowReplayForm(!showReplayForm)}} className="flex items-center gap-2 mt-2 cursor-pointer">
-                    <span className="w-8 h-[0.2px] bg-neutral-300"></span>
-                    <span className="text-sm text-neutral-700">{showReplay ? "hide replies" : "view replies"}</span>
-                    {!showReplay && <span className="text-sm text-neutral-700">{"("}{Object.keys(comment?.replies || {}).length}{")"}</span>}
+                    <span className="w-8 h-[0.2px] bg-card"></span>
+                    <span className="text-sm text-text">{showReplay ? "hide replies" : "view replies"}</span>
+                    {!showReplay && <span className="text-sm text-text">{"("}{Object.keys(comment?.replies || {}).length}{")"}</span>}
                 </button>}
                     
 
@@ -135,10 +135,10 @@ const Comment = ({comment, likeComment, user}) => {
                             </div>
                             <div>
                                 <div className="flex gap-2 items-center">
-                                    <span className="text-sm font-semibold text-neutral-800">
+                                    <span className="text-sm font-semibold text-text">
                                         {reply.firstName} {reply.lastName}
                                     </span>
-                                    <span className="text-xs text-neutral-400">
+                                    <span className="text-xs text-text-muted">
                                         {reply.createdAt
                                             ? formatTimeAgo(reply.createdAt)
                                             : ""}
@@ -148,14 +148,14 @@ const Comment = ({comment, likeComment, user}) => {
 
                                 <div className="flex gap-4 items-center mt-2">
                                     <button
-                                        className="flex gap-1 items-center justify-center cursor-pointer text-neutral-400">
+                                        className="flex gap-1 items-center justify-center cursor-pointer text-text-muted">
                                         <Heart size={16} className={"fill-current"} />
-                                        <p className="text-xs text-neutral-600">0</p>
+                                        <p className="text-xs text-text">0</p>
                                     </button>
 
                                     <button className="flex gap-1 items-center justify-center cursor-pointer">
-                                        <Reply size={16} className="text-neutral-600" />
-                                        <p className="text-xs text-neutral-600">Reply</p>
+                                        <Reply size={16} className="text-text" />
+                                        <p className="text-xs text-text">Reply</p>
                                     </button>
                                 </div>
 
@@ -184,10 +184,10 @@ const ReplyToCommentForm = ({user, comment, reply, setReply, addNewReplay}) => {
                     placeholder={`Reply to @${comment.firstName}_${comment.lastName}`}
                     value={reply}
                     onChange={(e)=>{setReply(e.target.value)}}
-                    className="w-full p-2 rounded-lg border border-neutral-200/60 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-neutral-200 focus:border-transparent transition-all duration-200 text-sm placeholder:text-[13px]"/>
+                    className="w-full p-2 bg-secondary rounded-lg border border-border text-text placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-neutral-200 focus:border-transparent transition-all duration-200 text-sm placeholder:text-[13px]"/>
                 <button 
                     onClick={addNewReplay}
-                    className="cursor-pointer bg-neutral-700 hover:bg-neutral-900 text-neutral-100 text-xs px-2 rounded-md transition-colors duration-150 ease-in-out">Post</button>
+                    className="cursor-pointer bg-foreground hover:bg-foreground/80 text-border-muted text-sm px-3 rounded-xl transition-colors duration-150 ease-in-out">Post</button>
             </div>
             
         </div>

@@ -26,7 +26,7 @@ export const Navbar = () => {
       <div className="flex items-center justify-between mx-auto max-w-[100rem] w-full">
       {/* Left: Logo + Search */}
       <div className="flex items-center gap-6">
-        <div className="text-md md:text-xl sm:text-lg font-semibold text-text tracking-tight">🌊 Mawja</div>
+        <div className="text-md md:text-xl sm:text-lg font-semibold text-primary tracking-tight">🌊 Mawja</div>
         <div className="relative hidden sm:block">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
           <input
@@ -57,21 +57,21 @@ export const Navbar = () => {
             (
           <>
             {/* Chat */}
-            <div className="hidden lg:block">
-            <button className="p-2.5 rounded-xl bg-secondary hover:bg-secondary-hover transition-all duration-200 text-text">
-              <MessageCircle size={18} />
-            </button>
+            <div className="hidden lg:block space-x-1">
+              <button className="p-2.5 rounded-xl cursor-pointer bg-secondary hover:bg-secondary-hover transition-all duration-200 text-text">
+                <MessageCircle size={18} />
+              </button>
 
-            {/* Notifications */}
-            <button className="p-2.5 rounded-xl bg-secondary hover:bg-secondary-hover transition-all duration-200 text-text relative">
-              <Bell size={18} />
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red rounded-full border-2 border-border"></span>
-            </button>
+              {/* Notifications */}
+              <button className="p-2.5 rounded-xl cursor-pointer bg-secondary hover:bg-secondary-hover transition-all duration-200 text-text relative">
+                <Bell size={18} />
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red rounded-full border-2 border-border"></span>
+              </button>
 
-            {/* Help */}
-            <button className="p-2.5 rounded-xl bg-secondary hover:bg-secondary-hover  transition-all duration-200 text-text">
-              <HelpCircle size={18} />
-            </button>
+              {/* Help */}
+              <button className="p-2.5 rounded-xl cursor-pointer bg-secondary hover:bg-secondary-hover  transition-all duration-200 text-text">
+                <HelpCircle size={18} />
+              </button>
             </div>
 
             {/* User Info + Dropdown */}
