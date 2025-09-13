@@ -97,26 +97,26 @@ const PostActionsMenu = ({menuRef, showPostActionsMenu, setShowPostActionsMenu, 
           >
             
           {post?.userId !== user?._id && <button onClick={()=>{toggleAddFriend(post?.userId,user?._id) && setShowPostActionsMenu(false)}}
-              className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-secondary transition-all duration-75 ease-in rounded-t-lg">
+              className="text-text bg-card cursor-pointer active:scale-[98%] py-3 hover:bg-secondary transition-all duration-75 ease-in rounded-t-lg">
               {user?.frinds?.some(fr => (typeof fr === "string" ? fr : fr._id) === post?.userId) ? "Unfriend" : "Add friend"}
           </button>}
 
           {post?.userId === user?._id && <button
-              className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-secondary transition-all duration-75 ease-in rounded-t-lg">
+              className="text-text bg-card cursor-pointer active:scale-[98%] py-3 hover:bg-secondary transition-all duration-75 ease-in rounded-t-lg">
               Edit
           </button>}
 
           <button onClick={()=>{toggleBookmark(user?._id, post?._id) && setShowPostActionsMenu(false)}}
-              className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-secondary transition-all duration-75 ease-in">
+              className="text-text bg-card cursor-pointer active:scale-[98%] py-3 hover:bg-secondary transition-all duration-75 ease-in">
               {bookmarks.some(fr => (typeof fr === "string" ? fr : fr._id) === post?._id) ? "unsave" : "save"}
           </button>
-          <button className="text-text bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-secondary transition-all duration-75 ease-in">
+          <button className="text-text bg-card cursor-pointer active:scale-[98%] py-3 hover:bg-secondary transition-all duration-75 ease-in">
               Add to favourite
           </button>
 
           {post?.userId === user?._id && 
           <button onClick={deletePost}
-                  className="text-red bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:hover:bg-red/10 transition-all duration-75 ease-in">
+                  className="text-red bg-card cursor-pointer active:scale-[98%] py-3 hover:hover:bg-red/10 transition-all duration-75 ease-in">
               {loadingDeletPost? 
                   <span className="flex items-center justify-center gap-2">
                       Delete
@@ -126,10 +126,10 @@ const PostActionsMenu = ({menuRef, showPostActionsMenu, setShowPostActionsMenu, 
                       </svg>
                   </span>
                   : "Delete"} </button>}
-          <button className="text-red bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-red/10 transition-all duration-75 ease-in rounded-b-lg">
+          <button className="text-red bg-card cursor-pointer active:scale-[98%] py-3 hover:bg-red/10 transition-all duration-75 ease-in rounded-b-lg">
               Report
           </button>
-          <button onClick={()=>{setShowPostActionsMenu(false)}} className="text-text sm:hidden block bg-card cursor-pointer active:scale-[98%] sm:py-3 py-4 hover:bg-red/10 transition-all duration-75 ease-in rounded-b-lg">
+          <button onClick={()=>{setShowPostActionsMenu(false)}} className="text-text sm:hidden block bg-card cursor-pointer active:scale-[98%] py-3 hover:bg-red/10 transition-all duration-75 ease-in rounded-b-lg">
               Cancel
           </button>
       </div>
