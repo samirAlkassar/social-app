@@ -51,10 +51,11 @@ function LoginPage() {
       <div className="w-full max-w-md p-8 rounded-2xl shadow-sm bg-card backdrop-blur-md border border-border">
         <ThemeButton />
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-semibold text-text tracking-tight">
-            Welcome back
-          </h2>
-          <p className="text-sm text-text/90 mt-2">Sign in to your account</p>
+          <div className="flex items-center gap-2 justify-center">
+            <img src="./mawja-logo-croped.PNG" alt="Mawja" className="h-9 w-9" />
+            <h1 className="text-3xl font-semibold text-primary tracking-tight mr-10">mawja</h1>
+          </div>
+          <p className="text-sm text-text-muted mt-2">Sign in to your account</p>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-5">
