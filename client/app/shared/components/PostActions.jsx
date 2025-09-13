@@ -34,13 +34,15 @@ const PostActions = ({deletePost, loadingDeletPost, post, toggleAddFriend, toggl
     
     return (
         <>
+        <div>
+          
             <button ref={buttonRef}
                 onClick={() => setShowPostActionsMenu((prev) => !prev)}
-                className="p-1.5 relative cursor-pointer rounded-lg hover:bg-neutral-100 text-neutral-600 hover:text-neutral-800 transition-all duration-200"
+                className="sm:p-1.5 p-3 relative cursor-pointer rounded-lg hover:bg-neutral-100 text-neutral-600 hover:text-neutral-800 transition-all duration-200"
                 >
                 <MoreHorizontal size={16} />
-                </button>
-
+            </button>
+        </div>
             {/* Dropdown menu */}
             <div ref={menuRef}
                 className={`bg-white border border-neutral-200 shadow-lg w-60 absolute top-16 right-6 rounded-lg z-10 flex flex-col 
@@ -50,6 +52,7 @@ const PostActions = ({deletePost, loadingDeletPost, post, toggleAddFriend, toggl
                     : "opacity-0 scale-95 pointer-events-none"
                     }`}
                 >
+                  
                 {post?.userId !== user?._id && <button onClick={()=>{toggleAddFriend(post?.userId,user?._id) && setShowPostActionsMenu(false)}}
                     className="text-neutral-700 bg-neutral-50 cursor-pointer active:scale-[98%] py-3 hover:bg-neutral-200 transition-all duration-75 ease-in rounded-t-lg">
                     {user?.frinds?.some(fr => (typeof fr === "string" ? fr : fr._id) === post?.userId) ? "Unfriend" : "Add friend"}

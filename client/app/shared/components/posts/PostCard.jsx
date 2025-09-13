@@ -10,6 +10,7 @@ import formatTimeAgo from "@/app/hooks/formateDate.js";
 import { useFreindsContext } from "@/app/context/useFriends.jsx";
 import { useBookmarksContext } from "@/app/context/useBookmarks.jsx";
 import { usePostsContext } from "@/app/context/usePosts.jsx";
+import LikeButton from "../../ui/LikeButton.jsx";
 
 export const PostCard = ({ post, user , loadingNewComment}) => {
     const {toggleAddFriend} = useFreindsContext();
@@ -281,10 +282,10 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
     };
     
     return (
-        <div className="bg-white/80 backdrop-blur-md border border-neutral-200/50 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-200">
+        <div className="py-2 px-0 sm:px-6 sm:py-6 bg-card/80 backdrop-blur-md border border-border md:rounded-xl sm:shadow-sm shadow-xs sm:hover:shadow-md transition-all duration-200">
         {/* Post Header */}
-        <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between sm:mb-4 mb-2 px-2 sm:px-0">
+            <div className="flex items-center gap-3 ">
               <div className="relative w-10 h-10 rounded-full border border-neutral-200/60">
                 <img
                     src={post.userPicturePath ? post?.userPicturePath : "/images/profile-avatar-notfound.jpg"}
@@ -297,10 +298,10 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
                 
             </div>
               <div>
-                  <h3 className="font-medium text-neutral-900">
+                  <h3 className="font-medium text-text">
                   {post.firstName} {post.lastName}
                   </h3>
-                  <div className="flex items-center gap-2 text-xs text-neutral-500">
+                  <div className="flex items-center gap-2 text-xs text-text-muted">
                   <span>location</span>
                   <span>•</span>
                   <span>{formatTimeAgo(post.createdAt, " new")}</span>
@@ -311,7 +312,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
             
             {user && <div className="flex items-center gap-2">
             {post?.userId === user?._id ? null :
-            <button onClick={()=>{toggleAddFriend(post?.userId,user?._id)}} className={`p-1.5 cursor-pointer rounded-lg transition-all duration-200 ${user?.frinds?.some(fr => (typeof fr === "string" ? fr : fr._id) === post?.userId) ? 'bg-cyan-200 text-cyan-600 hover:bg-cyan-300' : 'hover:bg-neutral-100 text-neutral-600 hover:text-neutral-800'}`}>
+            <button onClick={()=>{toggleAddFriend(post?.userId,user?._id)}} className={`sm:p-1.5 p-3 cursor-pointer rounded-lg transition-all duration-200 ${user?.frinds?.some(fr => (typeof fr === "string" ? fr : fr._id) === post?.userId) ? 'bg-cyan-200 text-cyan-600 hover:bg-cyan-300' : 'hover:bg-neutral-100 text-neutral-600 hover:text-neutral-800'}`}>
                 {user?.frinds?.some(fr => (typeof fr === "string" ? fr : fr._id) === post?.userId) ? <UserCheck size={16} />:<UserPlus size={16} />}
             </button>}
             {/* deletePost(user._id, post._id) */}
@@ -326,18 +327,18 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
         </div>
 
         {/* Post Content */}
-        <div className="mb-4">
-            <p className={`text-neutral-800 leading-relaxed mb-1 ${showMoreCaption? "" : "line-clamp-3"}`}>
+        <div className={`${post.picturePath? "mb-0" : "mb-4"}`}>
+            <p className={`text-text sm:leading-relaxed leading-normal text-sm sm:text-base mb-1 px-2 sm:px-0 ${showMoreCaption? "" : "line-clamp-3"}`}>
             {post.description} 
             </p>
-            {captionLength > 310 && <button onClick={()=>{setShowMoreCaption(!showMoreCaption)}} className="mb-2 text-sm underline cursor-pointer hover:text-cyan-700 text-cyan-600">{showMoreCaption? "show less" : "show more"}</button>}
+            {captionLength > 310 && <button onClick={()=>{setShowMoreCaption(!showMoreCaption)}} className="mb-2 px-2 sm:px-0 text-sm underline cursor-pointer hover:text-cyan-700 text-cyan-600">{showMoreCaption? "show less" : "show more"}</button>}
             
             {post.picturePath && (
-            <div className="relative rounded-xl overflow-hidden">
+            <div className="relative sm:rounded-lg rounded-none overflow-hidden">
                 <img
                 src={post.picturePath || "/images/profile-avatar-notfound.jpg"}
                 alt="Post content"
-                className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full max-h-[30rem] object-cover hover:scale-105 transition-transform duration-300"
                 />
             </div>
             )}
@@ -345,38 +346,24 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
 
         {/* Post Actions */}
         <div className="flex items-center justify-between pt-3 border-t border-neutral-200/50">
-            <div className="flex items-center gap-4">
-            <button
-                disabled={UserExist}
-                onClick={likePost}
-                className={`flex items-center gap-2 px-3 py-1.5 cursor-pointer rounded-lg transition-all duration-200 ${
-                user && likes.some(like => (typeof like === "string" ? like : like._id) === user._id)
-                    ? 'text-red-600 hover:bg-red-100' 
-                    : 'hover:bg-neutral-100 text-neutral-600 hover:text-neutral-800'
-                }`}
-            >
-                <Heart 
-                size={16} 
-                className={'fill-current'} 
-                />
-                <span className="text-sm font-medium min-w-2"> {(likes?.length) > 0 ? likes?.length : ""}</span>
-            </button>
-            
-            <button onClick={()=>{setShowPostBottomMenu(!showPostBottomMenu); getComments(post?._id, commentPage)}} className="flex cursor-pointer items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-neutral-100 text-neutral-600 hover:text-neutral-800 transition-all duration-200">
-                <MessageCircle size={16} />
-                <span className="text-sm font-medium">{post.comments?.length || 0}</span>
-            </button>
-            
-            <button disabled={UserExist} className="flex items-center gap-2 px-3 cursor-pointer py-1.5 rounded-lg hover:bg-neutral-100 text-neutral-600 hover:text-neutral-800 transition-all duration-200">
-                <Share size={16} />
-                <span className="text-sm font-medium">Share</span>
-            </button>
+            <div className="grid grid-cols-3 ">
+              <LikeButton disabled={UserExist} onClick={likePost} likes={likes}/>
+              
+              <button onClick={()=>{setShowPostBottomMenu(!showPostBottomMenu); getComments(post?._id, commentPage)}} className="flex cursor-pointer items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-secondary-hover text-text hover:text-text transition-all duration-200">
+                  <MessageCircle size={16} />
+                  <span className="text-sm font-medium">{post.comments?.length || 0}</span>
+              </button>
+              
+              <button disabled={UserExist} className="flex items-center gap-2 px-3 cursor-pointer py-1.5 rounded-lg hover:bg-secondary-hover text-text/80 hover:text-text transition-all duration-200">
+                  <Share size={16} />
+                  <span className="text-sm font-medium">Share</span>
+              </button>
             </div>
             
             <button
             disabled={UserExist}
             onClick={() => toggleBookmark(user?._id, post?._id)}
-            className={`p-1.5 rounded-lg cursor-pointer transition-all duration-200 
+            className={`p-1.5 rounded-lg cursor-pointer transition-all duration-200 sm:mr-0 mr-2
               ${bookmarks.some(fr => (typeof fr === "string" ? fr : fr._id) === post?._id)  ? "text-blue-500" : ""}`}
             >
             <Bookmark 
@@ -388,10 +375,10 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
         {showPostBottomMenu && <div className="mt-4">
           <div className="flex gap-4 border-b border-neutral-200 pb-1">
             <button 
-            className={`p-1 rounded-md active:scale-95 w-26 text-center cursor-pointer ${showComments? "bg-neutral-100 text-neutral-700 " : "bg-neutral-50 text-neutral-600"}`}
+            className={`p-1 rounded-md active:scale-95 w-26 text-center cursor-pointer ${showComments? "bg-neutral-100 text-text " : "bg-neutral-50 text-text"}`}
             onClick={()=>{getComments(post?._id, commentPage); setShowLikes(false); setShowComments(!showComments)}}>Comments</button>
             <button 
-            className={`p-1 rounded-md active:scale-95 w-26 cursor-pointer ${showLikes? "bg-neutral-100 text-neutral-700" : "bg-neutral-50 text-neutral-600"}`}
+            className={`p-1 rounded-md active:scale-95 w-26 cursor-pointer ${showLikes? "bg-neutral-100 text-text" : "bg-neutral-50 text-text/90"}`}
             onClick={()=>{getLikes(post?._id); setShowComments(false); setShowLikes(true)}}>Likes</button>
           </div>
            {showComments && 
@@ -404,7 +391,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
                 </div>:
 
             <div className="space-y-2">
-            {Array.isArray(comments) && comments.length === 0 && <p className="text-sm text-neutral-500 mt-2">No comments yet. Be the first to comment!</p>}
+            {Array.isArray(comments) && comments.length === 0 && <p className="text-sm text-text-muted mt-2">No comments yet. Be the first to comment!</p>}
             {Array.isArray(comments) && comments.map((comment) => (
                 <Comment key={comment?._id} comment={comment} likeComment={likeComment} user={user}/>
                 ))}
@@ -451,7 +438,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
                 </div>
               ))}
               </>}
-              {(Object.keys(post?.likes || {}).length) === 0 && <p className="text-sm text-neutral-500 mt-2">No likes yet. Be the first to like!</p>}
+              {(Object.keys(post?.likes || {}).length) === 0 && <p className="text-sm text-text-muted mt-2">No likes yet. Be the first to like!</p>}
 
             </div>
           </div>}
@@ -465,21 +452,27 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
             setCommentText={setCommentText}
             onClick={()=>submitComment(commentPage)}
             disabled={UserExist}
-            loadingNewComment={loadingNewComment} />
+            loadingNewComment={loadingNewComment}
+            user={user} />
     </div>
 )};
 
-export const AddCommentForm = ({commentText, setCommentText, onClick, disabled, loadingNewComment}) => {
+export const AddCommentForm = ({commentText, setCommentText, onClick, disabled, loadingNewComment, user}) => {
     return (
-    <div className="flex items-center gap-2 mt-3">
+    <div className="flex items-center gap-2 mt-3 px-2 sm:px-0">
+          {user && <img
+              src={user?.picturePath ? user?.picturePath : "/images/profile-avatar-notfound.jpg"}
+              alt={`${user?.firstName} ${user?.lastName}`}
+              className="rounded-full w-8 h-8"
+          />}
         <input
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             type="text"
             placeholder="Add a comment..."
-            className="w-full px-3 py-2 rounded-lg bg-neutral-50 border border-neutral-200/60 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all duration-200 text-sm"
+            className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-text-muted placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-text/20 focus:border-transparent transition-all duration-200 text-sm"
         />
-        <button disabled={disabled} onClick={onClick} className="px-3 py-2 cursor-pointer bg-neutral-900 hover:bg-neutral-800 disabled:bg-neutral-400 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all duration-200">{loadingNewComment? "Post..." : "Post"}</button>
+        <button disabled={disabled} onClick={onClick} className="px-3 py-2 cursor-pointer bg-neutral-900 hover:bg-neutral-800 disabled:bg-neutral-400 disabled:cursor-not-allowed text-text rounded-xl font-medium transition-all duration-200">{loadingNewComment? "Post..." : "Post"}</button>
     </div>
     )
 }

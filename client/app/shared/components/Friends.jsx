@@ -42,24 +42,24 @@ export function FriendsSection() {
     }    
   }, [user?.frinds]);
   return (
-    <div className="bg-white rounded-2xl shadow-sm overflow-hidden h-fit min-w-[350px] hidden xl:block top-[105px] sticky">
+    <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden h-fit min-w-[350px] hidden xl:block top-[105px] sticky">
       {/* Header */}
-      <div className="p-4 border-b border-gray-100">
+      <div className="p-4 border-b border-border">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold text-neutral-900 flex items-center gap-2">
-            <Users className="w-6 h-6 text-neutral-600" />
+          <h2 className="text-2xl font-bold text-text flex items-center gap-2">
+            <Users className="w-6 h-6 text-text" />
             Friends & Active
           </h2>
           <button className="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
-            <Search className="w-5 h-5 text-neutral-600" />
+            <Search className="w-5 h-5 text-text" />
           </button>
         </div>
 
         <div className="flex gap-2">
-          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+          <span className="px-3 py-1 bg-accent text-white rounded-full text-sm font-medium">
             {friends.filter((f) => f.isActive).length} Online
           </span>
-          <span className="px-3 py-1 bg-neutral-100 text-neutral-700 rounded-full text-sm font-medium">
+          <span className="px-3 py-1 bg-secondary text-text rounded-full text-sm font-medium">
             {friends.length} Total Friends
           </span>
         </div>
@@ -93,26 +93,26 @@ const FriendsItem = ({ friend }) => (
           className="w-12 h-12 rounded-full object-cover"
         />
         <div
-          className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white ${
+          className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-border ${
             true ? "bg-green-500" : "bg-gray-400"
           }`}
         ></div>
       </div>
 
       <div>
-        <div className="font-medium text-gray-900">{friend?.firstName}{" "}{friend?.lastName}</div>
-        <div className="flex items-center gap-2 text-xs/snug text-gray-600">
+        <div className="font-medium text-text">{friend?.firstName}{" "}{friend?.lastName}</div>
+        <div className="flex items-center gap-2 text-xs/snug text-text-muted">
           {true ? "Active" : `Last seen ${friend.lastSeen}`}
         </div>
       </div>
     </div>
 
     <div className="flex">
-      <button className="p-1 hover:bg-neutral-200 rounded-lg transition-colors cursor-pointer">
-        <MessageCircle className="w-5 h-5 text-neutral-700" />
+      <button className="p-1 hover:bg-secondary rounded-lg transition-colors cursor-pointer">
+        <MessageCircle className="w-5 h-5 text-text" />
       </button>
-      <button className="p-1 hover:bg-neutral-200 rounded-lg transition-colors cursor-pointer">
-        <MoreHorizontal className="w-5 h-5 text-neutral-700" />
+      <button className="p-1 hover:bg-secondary rounded-lg transition-colors cursor-pointer">
+        <MoreHorizontal className="w-5 h-5 text-text" />
       </button>
     </div>
   </div>

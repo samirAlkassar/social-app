@@ -4,6 +4,8 @@ import { UserProvider } from "./context/useUser";
 import { BookmarksProvider } from "./context/useBookmarks";
 import { FriendsProvider } from "./context/useFriends";
 import { PostsProvider } from "./context/usePosts";
+import { PostActionsMenuProvider } from "./context/usePostActionMenu";
+import { ThemeProvider } from "./context/useTheme";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +30,11 @@ export default function RootLayout({ children }) {
           <BookmarksProvider>
             <FriendsProvider>
               <PostsProvider>
-                {children}
+                <PostActionsMenuProvider>
+                  <ThemeProvider>
+                    {children}
+                  </ThemeProvider>
+                </PostActionsMenuProvider>
               </PostsProvider>
             </FriendsProvider>
           </BookmarksProvider>

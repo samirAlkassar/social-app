@@ -5,7 +5,7 @@ import { useBookmarksContext } from '@/app/context/useBookmarks';
 export const ProfileSection = ({currentUser}) => {
     const {bookmarks} = useBookmarksContext();
     return (
-    <div className="bg-white rounded-xl shadow-sm overflow-hidden h-fit min-w-[350px] hidden lg:block top-[105px] sticky">
+    <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden h-fit min-w-[350px] hidden lg:block top-[105px] sticky">
       {/* Profile Header */}
       <div className="relative p-1">
         <div className='relative w-full h-32'>
@@ -21,7 +21,7 @@ export const ProfileSection = ({currentUser}) => {
             <img 
                 src={currentUser?.picturePath ? currentUser?.picturePath : "./images/profile-avatar-notfound.jpg"}
                 alt={currentUser?.firstName}
-                className="w-18 h-18 rounded-full border-2 border-white shadow-lg object-cover bg-neutral-200"
+                className="w-18 h-18 rounded-full border-2 border-border shadow-lg object-cover bg-neutral-200"
             />
             <div className={`absolute bottom-1 right-1 w-4 h-4 rounded-full border-2 border-white ${true ? 'bg-green-500' : 'bg-gray-400'}`}></div>
           </div>
@@ -32,7 +32,7 @@ export const ProfileSection = ({currentUser}) => {
       <div className="mt-10 px-6 pb-6">
         <div className="flex justify-between items-start mb-2">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">{currentUser?.firstName}{" "}{currentUser?.lastName}</h2>
+            <h2 className="text-2xl font-bold text-text">{currentUser?.firstName}{" "}{currentUser?.lastName}</h2>
             <p className="flex text-sm items-center gap-2 text-cyan-600">
               <Mail className="w-4 h-4" />
               {currentUser?.email}
@@ -42,24 +42,24 @@ export const ProfileSection = ({currentUser}) => {
 
         </div>
 
-        <p className="text-gray-700 mb-6">user bio</p>
+        <p className="text-text-muted mb-6">user bio</p>
           <div className="flex gap-2">
             <button className="flex items-center justify-center w-full gap-2 px-3 py-2 text-sm hover:bg-neutral-800 bg-neutral-700 cursor-pointer text-white rounded-lg transition-all duration-300"><Edit3 size={16}/>Edit</button>
             <button onClick={()=>{window.location.href = `/profile/${currentUser?.firstName}_${currentUser?.lastName}`}} className="flex items-center justify-center w-full gap-2 px-3 py-2 text-sm hover:bg-neutral-800 bg-neutral-700 cursor-pointer text-white rounded-lg transition-all duration-300"><Eye size={16}/>view</button>
           </div>
         {/* Stats */}
-        <div className="flex justify-between items-center p-4 bg-gray-50 rounded-xl mb-6">
+        <div className="flex justify-between items-center p-4 bg-card rounded-xl mb-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-800">999</div>
-            <div className="text-xs text-gray-600">Posts</div>
+            <div className="text-2xl font-bold text-text">999</div>
+            <div className="text-xs text-text-muted">Posts</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-800">999</div>
-            <div className="text-xs text-gray-600">Followers</div>
+            <div className="text-2xl font-bold text-text">999</div>
+            <div className="text-xs text-text-muted">Followers</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-800">999</div>
-            <div className="text-xs text-gray-600">Following</div>
+            <div className="text-2xl font-bold text-text">999</div>
+            <div className="text-xs text-text-muted">Following</div>
           </div>
         </div>
 
@@ -79,13 +79,13 @@ export const ProfileSection = ({currentUser}) => {
 
 
 const SettingsItem = ({icon: Icon, label, notification = "", count = "", href}) => (
-  <div onClick={()=>{href && (window.location.href = href)}} className={`flex items-center gap-3 p-3 bg-gradient-to-r bg-neutral-50 border border-neutral-100 rounded-xl hover:shadow-sm transition-all duration-300 cursor-pointer ${notification && "justify-between"}`}>
+  <div onClick={()=>{href && (window.location.href = href)}} className={`flex items-center gap-3 p-3 bg-gradient-to-r bg-secondary border border-border-muted rounded-xl hover:border-text-muted/20 hover:shadow-sm transition-all duration-300 cursor-pointer ${notification && "justify-between"}`}>
     <div className='flex items-center gap-3'>
-      <Icon className="w-4 h-4 text-neutral-600" />
-      <span className="font-medium text-sm text-neutral-700">{label}</span>
+      <Icon className="w-4 h-4 text-text" />
+      <span className="font-medium text-sm text-text">{label}</span>
     </div>
-    {notification && <span className='bg-red-500 rounded-full max-w-4 max-h-4 text-sm p-[10px] flex items-center justify-center text-white'>{notification}</span>}
-    {count && <p className="text-neutral-600 text-sm -ml-2">{"("}{count}{")"}</p>}
+    {notification && <span className='bg-red rounded-full max-w-4 max-h-4 text-sm p-[10px] flex items-center justify-center text-white'>{notification}</span>}
+    {count && <p className="text-text text-sm -ml-2">{"("}{count}{")"}</p>}
 
   </div>
 );

@@ -117,24 +117,24 @@ export const Posts = ({data, pagination, limit}) => {
 
 
   return (
-    <div className="min-h-[calc(100vh-59px)] bg-gradient-to-br from-neutral-50 to-neutral-100 py-8">
+    <div className="min-h-[calc(100vh-59px)] mobile:py-8 py-4">
       
-      <div className="max-w-[90rem] mx-auto px-4 flex justify-baseline md:justify-center">
+      <div className="max-w-[90rem] mx-auto px-0 mobile:px-4 flex justify-baseline md:justify-center">
         {user && <ProfileSection currentUser={user}/>}
         {/* Header */}
-        <div className="px-4 flex-2 max-w-2xl">
-          <div className="mb-8">
-            <h1 className="text-3xl font-semibold text-neutral-900 tracking-tight mb-2">
+        <div className="md:px-4 px-0 flex-2 max-w-2xl">
+          <div className="md:mb-8 mb-2 md:px-0 px-2">
+            <h1 className="md:text-3xl text-2xl font-semibold text-text tracking-tight md:mb-2 mb-0">
               Latest Posts
             </h1>
-            <p className="text-neutral-600">
+            <p className="text-text/80 md:text-base text-sm">
               Stay connected with your community
             </p>
           </div>
 
           {/* Create Post Card */}
           
-          {loading? <CreatPostSkeleton /> : user ? <div className="bg-white/80 backdrop-blur-md border border-neutral-200/50 rounded-2xl p-6 shadow-sm mb-6">
+          {loading? <CreatPostSkeleton /> : user ? <div className="bg-card/80 backdrop-blur-md border border-border/50 sm:rounded-2xl p-6 shadow-sm mb-6">
             <div className="flex items-center gap-3 mb-4">
               
               {loading? 
@@ -151,7 +151,7 @@ export const Posts = ({data, pagination, limit}) => {
                 onChange={(e)=>{setDescription(e.target.value)}}
                 type="text"
                 placeholder="What's on your mind?"
-                className="flex-1 px-4 py-3 rounded-xl max-h-28 min-h-14 bg-neutral-50 border border-neutral-200/60 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all duration-200"
+                className="flex-1 px-4 py-3 rounded-xl max-h-28 min-h-14 bg-secondary border border-border/60 text-text placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-text/20 focus:border-transparent transition-all duration-200"
               />
             </div>
             
@@ -164,7 +164,7 @@ export const Posts = ({data, pagination, limit}) => {
                   {({ getRootProps, getInputProps }) => (
                     <button 
                       {...getRootProps()}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-neutral-100 text-neutral-600 hover:text-neutral-800 transition-all duration-200 text-sm cursor-pointer"
+                      className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-secondary text-text transition-all duration-200 text-sm cursor-pointer"
                     >
                       <input {...getInputProps()} name="image" />
                       {imagePath ? (
@@ -183,10 +183,10 @@ export const Posts = ({data, pagination, limit}) => {
                   )}
                 </Dropzone>
                 
-                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-neutral-100 text-neutral-600 hover:text-neutral-800 transition-all duration-200 text-sm">
+                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-secondary text-text transition-all duration-200 text-sm cursor-pointer">
                   📍 Location
                 </button>
-                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-neutral-100 text-neutral-600 hover:text-neutral-800 transition-all duration-200 text-sm">
+                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-secondary text-text transition-all duration-200 text-sm cursor-pointer">
                   😊 Feeling
                 </button>
               </div>
@@ -198,10 +198,10 @@ export const Posts = ({data, pagination, limit}) => {
                 {loadingNewPost? "Posting..." : "Post"}
               </button>
             </div>
-          </div>: <p className="mb-3">login to be able to share Posts, <a href="/login" className="underline">Login</a></p>}
+          </div>: <p className="mb-3 px-2 md:px-0 text-sm md:text-base">login to be able to share Posts, <a href="/login" className="underline">Login</a></p>}
 
           {/* Posts Feed */}
-          <div className="space-y-6">
+          <div className="sm:space-y-6 space-y-4">
             {posts.map((post) => (
               <PostCard key={post?._id} post={post} setPosts={setPosts} user={user} loadingNewComment={loadingNewComment}/>
             ))} 
