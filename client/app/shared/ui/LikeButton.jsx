@@ -14,7 +14,7 @@ const LikeButton = ({disabled, onClick, likes}) => {
                     : 'hover:bg-secondary-hover text-text hover:text-text'
                 }`}>
             <div className="relative">
-                <Heart size={16} className={`fill-current ${postIsLiked && "pulse-like"}`} />
+                <Heart size={16} className={`${postIsLiked  && "fill-current"}`}/>
                 <HeartAnimation postIsLiked={postIsLiked}/>
             </div>
             <span className="text-sm font-medium min-w-2">  {(likes?.length) > 0 ? likes?.length : ""}</span>
@@ -27,7 +27,7 @@ export default LikeButton;
 
 const HeartAnimation = ({postIsLiked}) => {
     return (
-        <div className={`absolute top-0 left-0 ${postIsLiked && "pulse-like-effect"}`}>
+        <div className={`top-0 left-0 ${postIsLiked ? "pulse-like-effect absolute" : "hidden"}`}>
             <Heart size={16} className="fill-current"/>
         </div>
     )
