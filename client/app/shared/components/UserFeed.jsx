@@ -5,10 +5,8 @@ import getCookies from "@/app/actions/getCookies";
 import useInfiniteScroll from "@/app/hooks/observer.js";
 import PostSkeleton from "@/app/shared/loading/PostSkeleton.jsx";
 
-export const UserFeed = () => {
+export const UserFeed = ({userPosts, setUserPosts,loadingPosts, setLoadingPosts}) => {
   const { user } = useUserContext();
-  const [loadingPosts, setLoadingPosts] = useState(false);
-  const [userPosts, setUserPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [hydrated, setHydrated] = useState(false);
@@ -22,6 +20,7 @@ export const UserFeed = () => {
 
   const getUserPosts = async (pageNum, limit) => {
     try {
+        setLoadingPosts(true);
         const token = await getCookies("token");
         const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/posts/${user._id}/posts?limit=${limit}&page=${pageNum}`,
@@ -74,10 +73,10 @@ export const UserFeed = () => {
         }
 
   return (
-    <div className="flex flex-col gap-6 max-w-2xl w-full mx-auto mt-6 pb-6 px-4">
+    <div className="flex flex-col gap-6 max-w-2xl w-full mx-auto mt-6 pb-6 sm:px-4 px-0">
       <div className="space-y-6">
             {userPosts.map((post) => (
-              <PostCard key={post?._id} post={post} handleLike={()=>{}} user={user} addComment={()=>{}} toggleAddFriend={()=>{}}/>
+              <PostCard key={post?._id} post={post} user={user}/>
             ))}
             {loadingPosts && (
               <>

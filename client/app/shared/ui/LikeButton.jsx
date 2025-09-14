@@ -9,7 +9,6 @@ const LikeButton = ({disabled, onClick, likes}) => {
     const [optimisticUpdate, setOptimisticUpdate] = useState(null);
     const [optimisticCounter, setOptimisticCounter] = useState(() => likes?.length ?? 0);
     const isLiked = optimisticUpdate !== null ? optimisticUpdate : Boolean(postIsLiked);
-    const numberOfLikes = likes?.length > 0 ? likes?.length : "";
     useEffect(() => {
         setOptimisticCounter(likes?.length ?? 0);
     }, [likes?.length]);

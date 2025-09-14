@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useBookmarksContext } from '@/app/context/useBookmarks';
 
 export const ProfileSection = ({currentUser}) => {
+
     const {bookmarks} = useBookmarksContext();
     return (
     <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden h-fit min-w-[350px] hidden lg:block top-[105px] sticky">
