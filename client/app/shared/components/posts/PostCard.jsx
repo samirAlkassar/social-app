@@ -282,7 +282,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
     };
     
     return (
-        <div className="py-2 px-0 sm:px-6 sm:py-6 bg-card/80 backdrop-blur-md border border-border md:rounded-xl sm:shadow-sm shadow-xs sm:hover:shadow-md transition-all duration-200">
+        <div className="py-2 px-0 sm:px-6 sm:py-6 bg-card/80 backdrop-blur-md sm:border border-border border-t border-b md:rounded-xl sm:shadow-sm shadow-xs sm:hover:shadow-md transition-all duration-200">
         {/* Post Header */}
         <div className="flex items-center justify-between sm:mb-4 mb-2 px-2 sm:px-0">
             <div className="flex items-center gap-3 ">
@@ -351,7 +351,9 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
               
               <button onClick={()=>{setShowPostBottomMenu(!showPostBottomMenu); getComments(post?._id, commentPage)}} className="flex cursor-pointer items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-secondary-hover text-text hover:text-text transition-all duration-200">
                   <MessageCircle size={16} />
-                  <span className="text-sm font-medium">{post.comments?.length || 0}</span>
+                  <span className="text-sm font-medium">
+                  {(post.comments?.length || 0) + (comments.reduce((acc, c) => acc + (c.replies?.length || 0), 0))}
+                </span>
               </button>
               
               <button disabled={UserExist} className="flex items-center gap-2 px-3 cursor-pointer py-1.5 rounded-lg hover:bg-secondary-hover text-text/80 hover:text-text transition-all duration-200">

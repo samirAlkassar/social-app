@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useUserContext } from "@/app/context/useUser"; 
 import {UserFeed} from "@/app/shared/components/UserFeed";
 import { Mail, Phone, MapPin, Calendar, Edit3, Save, X, Camera, Palette, Shield, Bell, Eye, Moon, Sun, Monitor,Globe} from 'lucide-react';
+import { Navbar } from '@/app/shared/components/Navbar';
 export const dynamic = "force-dynamic";
 
 const Profile = () => {
@@ -365,6 +366,8 @@ const Profile = () => {
     </div>
   )}
   return (
+    <>
+    <Navbar />
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 py-4">
         {/* Header */}
@@ -408,6 +411,7 @@ const Profile = () => {
       </div>
       <UserFeed />
     </div>
+    </>
   );
 };
 

@@ -66,7 +66,7 @@ const PostActions = ({deletePost, loadingDeletPost, post, toggleAddFriend, toggl
           ,document.body)}
         </div>
         
-        <div className="sm:block hidden z-50">
+        <div ref={menuRef} className="sm:block hidden relative z-50">
           <PostActionsMenu 
             menuRef={menuRef}
             showPostActionsMenu={showPostActionsMenu}
@@ -84,11 +84,11 @@ const PostActions = ({deletePost, loadingDeletPost, post, toggleAddFriend, toggl
     )
 }
 
-const PostActionsMenu = ({menuRef, showPostActionsMenu, setShowPostActionsMenu, toggleAddFriend, bookmarks, user, post ,loadingDeletPost, deletePost}) => {
+const PostActionsMenu = ({menuRef, showPostActionsMenu, setShowPostActionsMenu, toggleAddFriend, bookmarks, user, post ,loadingDeletPost, deletePost, toggleBookmark}) => {
   return (
  
-        <div ref={menuRef}
-          className={`bg-card border border-border shadow-lg w-60 sm:absolute sm:top-16 sm:right-6 rounded-lg z-10 flex flex-col 
+        <div 
+          className={`bg-card border border-border shadow-lg w-60 sm:absolute sm:top-8 sm:right-2 rounded-lg z-10 flex flex-col 
               transform transition-all duration-200 ease-out origin-top-right
               ${showPostActionsMenu
               ? "opacity-100 scale-100"

@@ -8,11 +8,8 @@ import ThemeButton from "../ui/ThemeButton";
 
 export const Navbar = () => {
   const {user,setUser, loading} = useUserContext();
+  const router = useRouter()
 
-
-
-
-  const router = useRouter();
 
   const onLogout = () => {
     setUser(null);
@@ -22,13 +19,14 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="w-full flex items-center justify-between bg-background/80 backdrop-blur-md border-b border-border/50 text-neutral-800 md:px-6 md:py-2 px-4 py-2 shadow-sm sticky top-0 z-10">
+    <nav className="w-full flex items-center justify-between bg-background/80 backdrop-blur-md border-b border-border/50 text-neutral-800 md:px-6 md:py-2 px-4 py-3 shadow-sm sticky top-0 z-10">
       <div className="flex items-center justify-between mx-auto max-w-[100rem] w-full">
       {/* Left: Logo + Search */}
       <div className="flex items-center gap-6">
-        <div className="text-md md:text-xl sm:text-lg font-semibold flex gap-2 items-center text-primary tracking-tight">
-          <img src="./mawja-logo-croped.PNG" alt="Mawja" className="h-7 w-7" />
-          <h1>Mawja</h1></div>
+        <div className="text-xl cursor-pointer md:text-xl font-semibold flex gap-2 items-center text-primary tracking-tight" onClick={()=>{router.push("/")}}>
+          <img src={"./mawja-logo-croped.PNG"} alt="" className="h-7 w-7" />
+          <h1>Mawja</h1>
+        </div>
         <div className="relative hidden sm:block">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
           <input

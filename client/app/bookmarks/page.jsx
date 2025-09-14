@@ -8,6 +8,7 @@ import PostSkeleton from "../shared/loading/PostSkeleton";
 import { useBookmarksContext } from "../context/useBookmarks";
 import { ArrowLeftCircle } from "lucide-react";
 import { usePostsContext } from "../context/usePosts";
+import { Navbar } from "../shared/components/Navbar";
 
 const Bookmarks = () => {
     const {user} = useUserContext();
@@ -48,6 +49,8 @@ const Bookmarks = () => {
 
 
     return (
+        <>
+        <Navbar />
         <div className="max-w-2xl mx-auto">
             <h1 className="text-xl text-neutral-700 font-semibold text-center mt-4">Bookmarks</h1>
             <a className="flex gap-2 items-center hover:text-cyan-800" href="/"><ArrowLeftCircle /> <span>go back</span></a>
@@ -76,6 +79,7 @@ const Bookmarks = () => {
                 </div>
             )}
         </div>
+        </>
     )
 }
 
