@@ -77,7 +77,7 @@ export const Navbar = () => {
 
             {/* User Info + Dropdown */}
             <div className="flex items-center gap-3 bg-card border border-border sm:px-4 sm:py-2.5 px-3 py-1.5 rounded-xl hover:bg-card-hover transition-all duration-200">
-              <div className="relative min-w-8 min-h-8">
+              <div onClick={()=>{router.push(`/profile/${user?.firstName}_${user.lastName}`)}} className="relative min-w-8 min-h-8 cursor-pointer">
                 <Image
                   src={user.picturePath ? user?.picturePath : "./avatar-profile-notfound.jpeg"}
                   alt="User Avatar"
@@ -91,6 +91,8 @@ export const Navbar = () => {
                 </span>
                 <span className="text-xs text-text-muted">Online</span>
               </div>
+
+
               <button
                 onClick={onLogout}
                 className="ml-2 px-3 sm:flex hidden py-1.5 rounded-lg bg-secondary hover:bg-secondary-hover text-text transition-all duration-200 items-center gap-1.5 cursor-pointer text-xs font-medium"

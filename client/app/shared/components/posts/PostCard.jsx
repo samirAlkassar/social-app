@@ -1,7 +1,7 @@
 "use client";
 
 import {useState, useEffect} from "react";
-import { UserCheck, Heart, MessageCircle, Share, Bookmark, UserPlus, CornerDownLeft ,CornerUpLeft } from "lucide-react";
+import { UserCheck, MessageCircle, Share, UserPlus, CornerDownLeft ,CornerUpLeft } from "lucide-react";
 import CommentSkeleton from "../../loading/CommentSkeleton.jsx";
 import Comment from "./Comment.jsx";
 import getCookies from "@/app/actions/getCookies.js";
@@ -13,8 +13,10 @@ import { usePostsContext } from "@/app/context/usePosts.jsx";
 import LikeButton from "../../ui/LikeButton.jsx";
 import BookmarksButton from "../../ui/BookmarksButton.jsx";
 import Image from "next/image.js";
+import { useRouter } from "next/navigation.js";
 
 export const PostCard = ({ post, user , loadingNewComment}) => {
+    const router = useRouter();
     const {toggleAddFriend} = useFreindsContext();
     const {bookmarks, setBookmarks} = useBookmarksContext();
     const {setPosts} = usePostsContext();
@@ -282,13 +284,16 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
       console.log(error);
       }
     };
+
+
+
     
     return (
         <div className="py-2 px-0 sm:px-6 sm:py-6 bg-card/80 backdrop-blur-md sm:border border-border border-t border-b md:rounded-xl sm:shadow-sm shadow-xs sm:hover:shadow-md transition-all duration-200">
         {/* Post Header */}
         <div className="flex items-center justify-between sm:mb-4 mb-2 px-2 sm:px-0">
             <div className="flex items-center gap-3 ">
-              <div className="relative w-10 h-10 rounded-full border border-border">
+              <div onClick={()=>{router.push(`/profile/${post?.firstName}_${post?.lastName}/${post?.userId}`)}} className="relative w-10 h-10 rounded-full border border-border">
                 <Image
                     src={post.userPicturePath ? post?.userPicturePath : "/images/profile-avatar-notfound.jpg"}
                     alt={`${post.firstName} ${post.lastName}`}

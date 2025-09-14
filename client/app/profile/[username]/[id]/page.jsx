@@ -5,9 +5,11 @@ import { useUserContext } from "@/app/context/useUser";
 import {UserFeed} from "@/app/shared/components/UserFeed";
 import { Mail, Phone, MapPin, Calendar, Edit3, Save, X, Camera, Palette, Shield, Bell, Eye, Moon, Sun, Monitor,Globe} from 'lucide-react';
 import { Navbar } from '@/app/shared/components/Navbar';
+import { useParams } from 'next/navigation'
 
 const Profile = () => {
-  const {user, loading} = useUserContext();
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(false)
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('profile');
   const [theme, setTheme] = useState('light');
@@ -15,6 +17,8 @@ const Profile = () => {
   const [userPosts, setUserPosts] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [totalLikes, setTotalLikes] = useState(null);
+  const params = useParams()
+
   
   const [notifications, setNotifications] = useState({likes: true, comments: true, follows: true, messages: false});
   useEffect(() => {
@@ -32,11 +36,36 @@ const Profile = () => {
   const [profileData, setProfileData] = useState(defaultProfileData);
   const [mounted, setMounted] = useState(false);
   const [tempData, setTempData] = useState(profileData);
+
+
+  const getUser = async (id) => {
+    try {
+      setLoading(true)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`);
+      if (!res.ok) {
+        const errText = await res.text();
+        console.error("Failed to get user", res.status, errText);
+        return;
+      }
+      const user = await res.json();
+      setUser(user)
+    } catch (error) {
+    console.log(error);
+    } finally {
+      setLoading(false)
+    }
+  }
+  useEffect(() => {
+    console.log("Params:", params);
+    if (params?.id) {
+      getUser(params.id);
+    }
+  }, [params]);
+
   useEffect(() => {
     setMounted(true);
   }, []);
   
-
   if (!mounted) {
     return null; // or loading skeleton
   }
@@ -71,6 +100,8 @@ const Profile = () => {
       </div>
     );
   }
+
+ 
   
   const ProfileInfo = () => (
     

@@ -11,8 +11,10 @@ import PostSkeleton from "@/app/shared/loading/PostSkeleton.jsx";
 import PostCard from "./PostCard.jsx";
 import CreatPostSkeleton from "../../loading/CreatePostSkeleton.jsx";
 import { usePostsContext } from "@/app/context/usePosts.jsx";
+import { useRouter } from "next/navigation.js";
 
 export const Posts = ({data, pagination, limit}) => {
+  const router = useRouter();
   const {user, loading} = useUserContext();
   const {posts, setPosts ,loadingPosts ,setLoadingPosts } = usePostsContext();
   const [hasMore, setHasMore] = useState(pagination.hasMore || false);
@@ -143,7 +145,8 @@ export const Posts = ({data, pagination, limit}) => {
               <img
                   src={user?.picturePath ? user?.picturePath : "/images/profile-avatar-notfound.jpg"}
                   alt={user?.fireName || "avatar image"}
-                  className="w-10 h-10 rounded-full border border-neutral-200/60"
+                  className="w-10 h-10 rounded-full border border-neutral-200/60 cursor-pointer"
+                  onClick={()=>{router.push(`/profile/${user?.firstName}_${user.lastName}`)}}
                 />
               }
 
