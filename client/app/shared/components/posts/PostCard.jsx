@@ -11,6 +11,8 @@ import { useFreindsContext } from "@/app/context/useFriends.jsx";
 import { useBookmarksContext } from "@/app/context/useBookmarks.jsx";
 import { usePostsContext } from "@/app/context/usePosts.jsx";
 import LikeButton from "../../ui/LikeButton.jsx";
+import BookmarksButton from "../../ui/BookmarksButton.jsx";
+import Image from "next/image.js";
 
 export const PostCard = ({ post, user , loadingNewComment}) => {
     const {toggleAddFriend} = useFreindsContext();
@@ -287,10 +289,11 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
         <div className="flex items-center justify-between sm:mb-4 mb-2 px-2 sm:px-0">
             <div className="flex items-center gap-3 ">
               <div className="relative w-10 h-10 rounded-full border border-border">
-                <img
+                <Image
                     src={post.userPicturePath ? post?.userPicturePath : "/images/profile-avatar-notfound.jpg"}
                     alt={`${post.firstName} ${post.lastName}`}
                     className="absolute rounded-full z-10"
+                    fill
                 />
 
                 <span className={`absolute w-full h-full bg-conic/decreasing blur-sm animate-spin from-violet-700 opacity-0 via-lime-300 to-violet-700 rounded-full
@@ -328,18 +331,22 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
 
         {/* Post Content */}
         <div className={`${post.picturePath? "mb-0" : "mb-4"}`}>
-            <p className={`text-text sm:leading-relaxed leading-normal text-sm sm:text-base mb-1 px-2 sm:px-0 ${showMoreCaption? "" : "line-clamp-3"}`}>
+            <p className={`text-text sm:leading-relaxed leading-normal text-sm sm:text-base mb-2 px-2 sm:px-0 ${showMoreCaption? "" : "line-clamp-3"}`}>
             {post.description} 
             </p>
             {captionLength > 310 && <button onClick={()=>{setShowMoreCaption(!showMoreCaption)}} className="mb-2 px-2 sm:px-0 text-sm underline cursor-pointer hover:text-cyan-700 text-cyan-600">{showMoreCaption? "show less" : "show more"}</button>}
             
             {post.picturePath && (
-            <div className="relative sm:rounded-lg rounded-none overflow-hidden">
-                <img
+            <div className="flex justify-center sm:rounded-lg rounded-none overflow-hidden max-h-[30rem]">
+              <Image
                 src={post.picturePath || "/images/profile-avatar-notfound.jpg"}
                 alt="Post content"
-                className="w-full max-h-[30rem] object-cover hover:scale-105 transition-transform duration-300"
-                />
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: '100%', height: 'auto' }} // optional
+                className="object-cover hover:scale-105 transition-transform duration-300"
+              />
             </div>
             )}
         </div>
@@ -350,29 +357,19 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
               <LikeButton disabled={UserExist} onClick={likePost} likes={likes}/>
               
               <button onClick={()=>{setShowPostBottomMenu(!showPostBottomMenu); getComments(post?._id, commentPage)}} className="flex cursor-pointer items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-secondary-hover text-text hover:text-text transition-all duration-200">
-                  <MessageCircle size={16} />
+                  <MessageCircle size={18} />
                   <span className="text-sm font-medium">
                   {(post.comments?.length || 0) + (comments.reduce((acc, c) => acc + (c.replies?.length || 0), 0))}
                 </span>
               </button>
               
               <button disabled={UserExist} className="flex items-center gap-2 px-3 cursor-pointer py-1.5 rounded-lg hover:bg-secondary-hover text-text/80 hover:text-text transition-all duration-200">
-                  <Share size={16} />
+                  <Share size={18} />
                   <span className="text-sm font-medium">Share</span>
               </button>
             </div>
             
-            <button
-            disabled={UserExist}
-            onClick={() => toggleBookmark(user?._id, post?._id)}
-            className={`p-1.5 rounded-lg cursor-pointer transition-all duration-200 sm:mr-0 mr-2
-              ${bookmarks.some(fr => (typeof fr === "string" ? fr : fr._id) === post?._id)  ? "text-blue-500" : ""}`}
-            >
-            <Bookmark 
-                size={16} 
-                className={bookmarks.some(fr => (typeof fr === "string" ? fr : fr._id) === post?._id)  ? 'fill-current' : ''} 
-            />
-            </button>
+           <BookmarksButton disabled={UserExist} bookmarks={bookmarks} post={post} onClick={()=>{toggleBookmark(user?._id, post?._id)}}/>
         </div>
         {showPostBottomMenu && <div className="mt-4">
           <div className="flex gap-4 border-b border-border pb-1">
@@ -432,9 +429,9 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
               {likes.map((like)=>(
                 <div key={like._id} className="flex gap-2 items-center">
                   <div className="relative h-8 w-8 rounded-full border border-neutral-400 overflow-clip">
-                    <img src={`${like.picturePath}` ? `${like.picturePath}` : "/images/profile-avatar-notfound.jpg"} 
+                    <Image src={`${like.picturePath}` ? `${like.picturePath}` : "/images/profile-avatar-notfound.jpg"} 
                           alt="user image"
-                          className="absolute w-full h-full object-fill" />
+                          className="absolute w-full h-full object-cover" fill />
                   </div>
                   <h4>{like.firstName} {like.lastName}</h4>
                 </div>
@@ -462,11 +459,15 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
 export const AddCommentForm = ({commentText, setCommentText, onClick, disabled, loadingNewComment, user}) => {
     return (
     <div className="flex items-center gap-2 mt-3 px-2 sm:px-0">
-          {user && <img
-              src={user?.picturePath ? user?.picturePath : "/images/profile-avatar-notfound.jpg"}
-              alt={`${user?.firstName} ${user?.lastName}`}
-              className="rounded-full w-8 h-8"
-          />}
+          {user && 
+          <div className="relative min-w-8 h-8 border-2 border-border rounded-full overflow-clip">
+            <Image
+                src={user?.picturePath ? user?.picturePath : "/images/profile-avatar-notfound.jpg"}
+                alt={`${user?.firstName} ${user?.lastName}`}
+                className="absolute w-full h-full"
+                fill
+            />
+          </div>}
         <input
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}

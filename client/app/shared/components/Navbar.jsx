@@ -5,6 +5,7 @@ import { useUserContext } from "@/app/context/useUser";
 import { Search, MessageCircle, Bell, HelpCircle, LogOut, LogIn, UserPlus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ThemeButton from "../ui/ThemeButton";
+import Image from "next/image";
 
 export const Navbar = () => {
   const {user,setUser, loading} = useUserContext();
@@ -75,12 +76,15 @@ export const Navbar = () => {
             </div>
 
             {/* User Info + Dropdown */}
-            <div className="flex items-center gap-3 bg-card border border-border px-4 py-2.5 rounded-xl hover:bg-card-hover transition-all duration-200">
-              <img
-                src={user.picturePath ? user?.picturePath : "./avatar-profile-notfound.jpeg"}
-                alt="User Avatar"
-                className="w-8 h-8 rounded-full border border-border "
-              />
+            <div className="flex items-center gap-3 bg-card border border-border sm:px-4 sm:py-2.5 px-3 py-1.5 rounded-xl hover:bg-card-hover transition-all duration-200">
+              <div className="relative min-w-8 min-h-8">
+                <Image
+                  src={user.picturePath ? user?.picturePath : "./avatar-profile-notfound.jpeg"}
+                  alt="User Avatar"
+                  className=" rounded-full object-cover border absolute border-border" fill
+                />
+              </div>
+
               <div className="flex flex-col">
                 <span className="text-sm font-medium text-text leading-tight">
                   {user.firstName} {user.lastName}
@@ -89,7 +93,7 @@ export const Navbar = () => {
               </div>
               <button
                 onClick={onLogout}
-                className="ml-2 px-3 py-1.5 rounded-lg bg-secondary hover:bg-secondary-hover text-text transition-all duration-200 flex items-center gap-1.5 cursor-pointer text-xs font-medium"
+                className="ml-2 px-3 sm:flex hidden py-1.5 rounded-lg bg-secondary hover:bg-secondary-hover text-text transition-all duration-200 items-center gap-1.5 cursor-pointer text-xs font-medium"
               >
                 <LogOut size={14} />
                 <span className="hidden md:inline">Logout</span>

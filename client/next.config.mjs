@@ -2,7 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["i.pinimg.com"], // 👈 add this line
+    domains: ["i.pinimg.com", "res.cloudinary.com"], // 👈 add this line
   },
 };
 
