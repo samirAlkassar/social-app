@@ -293,7 +293,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
         {/* Post Header */}
         <div className="flex items-center justify-between sm:mb-4 mb-2 px-2 sm:px-0">
             <div className="flex items-center gap-3 ">
-              <div onClick={()=>{router.push(`/profile/${post?.firstName}_${post?.lastName}/${post?.userId}`)}} className="relative w-10 h-10 rounded-full border border-border">
+              <div onClick={()=>{router.push(`/profile/${post?.firstName}_${post?.lastName}/${post?.userId}`)}} className="relative cursor-pointer w-10 h-10 rounded-full border border-border">
                 <Image
                     src={post.userPicturePath ? post?.userPicturePath : "/images/profile-avatar-notfound.jpg"}
                     alt={`${post.firstName} ${post.lastName}`}
@@ -306,7 +306,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
                 
             </div>
               <div>
-                  <h3 className="font-medium text-text">
+                  <h3 onClick={()=>{router.push(`/profile/${post?.firstName}_${post?.lastName}/${post?.userId}`)}} className="cursor-pointer font-medium text-text">
                   {post.firstName} {post.lastName}
                   </h3>
                   <div className="flex items-center gap-2 text-xs text-text-muted">

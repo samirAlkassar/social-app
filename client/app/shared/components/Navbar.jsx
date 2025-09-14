@@ -25,7 +25,7 @@ export const Navbar = () => {
       {/* Left: Logo + Search */}
       <div className="flex items-center gap-6">
         <div className="text-xl cursor-pointer md:text-xl font-semibold flex gap-2 items-center text-primary tracking-tight" onClick={()=>{router.push("/")}}>
-          <img src={"./mawja-logo-croped.PNG"} alt="" className="h-7 w-7" />
+          <img src={"/mawja-logo-croped.PNG"} alt="" className="h-7 w-7" />
           <h1>Mawja</h1>
         </div>
         <div className="relative hidden sm:block">
@@ -77,7 +77,7 @@ export const Navbar = () => {
 
             {/* User Info + Dropdown */}
             <div className="flex items-center gap-3 bg-card border border-border sm:px-4 sm:py-2.5 px-3 py-1.5 rounded-xl hover:bg-card-hover transition-all duration-200">
-              <div onClick={()=>{router.push(`/profile/${user?.firstName}_${user.lastName}`)}} className="relative min-w-8 min-h-8 cursor-pointer">
+              <div onClick={()=>{router.push(`/profile/${user?.firstName}_${user.lastName}/${user?._id}`)}} className="relative min-w-8 min-h-8 cursor-pointer">
                 <Image
                   src={user.picturePath ? user?.picturePath : "./avatar-profile-notfound.jpeg"}
                   alt="User Avatar"

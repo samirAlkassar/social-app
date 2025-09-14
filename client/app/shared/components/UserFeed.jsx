@@ -1,12 +1,10 @@
 import PostCard from "./posts/PostCard";
-import { useUserContext } from "@/app/context/useUser";
 import React, { useState, useEffect, useRef } from "react";
 import getCookies from "@/app/actions/getCookies";
 import useInfiniteScroll from "@/app/hooks/observer.js";
 import PostSkeleton from "@/app/shared/loading/PostSkeleton.jsx";
 
-export const UserFeed = ({userPosts, setUserPosts,loadingPosts, setLoadingPosts}) => {
-  const { user } = useUserContext();
+export const UserFeed = ({userPosts, setUserPosts,loadingPosts, setLoadingPosts, user}) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [hydrated, setHydrated] = useState(false);

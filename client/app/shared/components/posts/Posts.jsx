@@ -146,7 +146,7 @@ export const Posts = ({data, pagination, limit}) => {
                   src={user?.picturePath ? user?.picturePath : "/images/profile-avatar-notfound.jpg"}
                   alt={user?.fireName || "avatar image"}
                   className="w-10 h-10 rounded-full border border-neutral-200/60 cursor-pointer"
-                  onClick={()=>{router.push(`/profile/${user?.firstName}_${user.lastName}`)}}
+                  onClick={()=>{router.push(`/profile/${user?.firstName}_${user.lastName}/${user?._id}`)}}
                 />
               }
 

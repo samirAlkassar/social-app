@@ -1,8 +1,10 @@
 import {Mail, Edit3, Eye, Bookmark, Heart, Rss, MessageCircle, Settings, Bell  } from 'lucide-react';
 import Image from 'next/image';
 import { useBookmarksContext } from '@/app/context/useBookmarks';
+import { useRouter } from 'next/navigation';
 
 export const ProfileSection = ({currentUser}) => {
+  const router = useRouter();
 
     const {bookmarks} = useBookmarksContext();
     return (
@@ -46,7 +48,7 @@ export const ProfileSection = ({currentUser}) => {
         <p className="text-text-muted mb-6">user bio</p>
           <div className="flex gap-2">
             <button className="flex items-center justify-center w-full gap-2 px-3 py-2 text-sm hover:bg-neutral-800 bg-neutral-700 cursor-pointer text-white rounded-lg transition-all duration-300"><Edit3 size={16}/>Edit</button>
-            <button onClick={()=>{window.location.href = `/profile/${currentUser?.firstName}_${currentUser?.lastName}`}} className="flex items-center justify-center w-full gap-2 px-3 py-2 text-sm hover:bg-neutral-800 bg-neutral-700 cursor-pointer text-white rounded-lg transition-all duration-300"><Eye size={16}/>view</button>
+            <button onClick={()=>{router.push(`/profile/${currentUser?.firstName}_${currentUser?.lastName}/${currentUser?._id}`)}} className="flex items-center justify-center w-full gap-2 px-3 py-2 text-sm hover:bg-neutral-800 bg-neutral-700 cursor-pointer text-white rounded-lg transition-all duration-300"><Eye size={16}/>view</button>
           </div>
         {/* Stats */}
         <div className="flex justify-between items-center p-4 bg-card rounded-xl mb-6">
