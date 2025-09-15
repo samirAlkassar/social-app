@@ -8,7 +8,7 @@ import { useUserContext } from '@/app/context/useUser';
 import { ProfileInfo } from '@/app/shared/components/profile/ProfileInfo';
 import { SettingsPanel } from '@/app/shared/components/profile/SettingsPanel';
 import { Bookmarks } from '@/app/bookmarks/page';
-import { Bookmark, Heart, User } from 'lucide-react';
+import { Bookmark, Hammer, Heart, User } from 'lucide-react';
 
 const Profile = () => {
   const {user} = useUserContext();
@@ -153,10 +153,12 @@ if (!userById) {
         setLoadingPosts={setLoadingPosts} 
         userPosts={userPosts} 
         setUserPosts={setUserPosts}
-        user={userById}/> :
+        user={userById}/> : section === "saved" ?
       <div className='flex flex-col gap-6 max-w-2xl w-full mx-auto sm:mt-4 mt-0 pb-6 sm:px-4 px-0'>
         <Bookmarks />
-      </div>
+      </div> : section === "liked" ?
+      <div className='flex items-center gap-1'><p>under construction</p> <Hammer size={20}/></div>:
+      <div>error</div>
     }
       {!Authorized && <UserFeed 
         loadingPosts={loadingPosts} 
