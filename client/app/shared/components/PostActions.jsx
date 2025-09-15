@@ -83,7 +83,7 @@ const PostActions = ({
       {/* Desktop dropdown menu */}
       <div
         ref={dropdownMenuRef}
-        className="hidden sm:block absolute top-8 right-2 z-50"
+        className="hidden sm:block absolute top-17 right-5 z-50"
       >
         {showPostActionsMenu && (
           <PostActionsMenu
@@ -112,7 +112,7 @@ const PostActionsMenu = ({
   deletePost,
   toggleBookmark,
 }) => {
-  const isFriend = user?.friends?.some(
+  const isFriend = user?.frinds?.some(
     (fr) => (typeof fr === "string" ? fr : fr._id) === post?.userId
   );
   const isBookmarked = bookmarks.some(

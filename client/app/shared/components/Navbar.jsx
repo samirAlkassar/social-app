@@ -20,7 +20,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="w-full flex items-center justify-between bg-background/80 backdrop-blur-md border-b border-border/50 text-neutral-800 md:px-6 md:py-2 px-4 py-3 shadow-sm sticky top-0 z-10">
+    <nav className="w-full flex items-center justify-between bg-background/90 backdrop-blur-md border-b border-border/50 text-neutral-800 md:px-6 md:py-2 px-4 py-3 shadow-sm sticky top-0 z-10">
       <div className="flex items-center justify-between mx-auto max-w-[100rem] w-full">
       {/* Left: Logo + Search */}
       <div className="flex items-center gap-6">
@@ -95,7 +95,7 @@ export const Navbar = () => {
 
               <button
                 onClick={onLogout}
-                className="ml-2 px-3 sm:flex hidden py-1.5 rounded-lg bg-secondary hover:bg-secondary-hover text-text transition-all duration-200 items-center gap-1.5 cursor-pointer text-xs font-medium"
+                className="ml-2 px-3 sm:flex hidden py-1.5 rounded-lg bg-text hover:bg-text-muted text-background transition-all duration-200 items-center gap-1.5 cursor-pointer text-xs font-medium"
               >
                 <LogOut size={14} />
                 <span className="hidden md:inline">Logout</span>

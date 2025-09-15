@@ -72,7 +72,7 @@ const Bookmarks = () => {
                                     <p className="text-base text-neutral-800">This post was deleted by the user ⚠️</p>
                                     <button className="text-sm">Remove</button>
                                 </div>:
-                                <PostCard key={post._id} post={post} bookmarks={bookmarks} user={user} setBookmarks={setBookmarks} setPosts={setPosts}  />
+                                <PostCard key={post?._id} post={post} bookmarks={bookmarks} user={user} setBookmarks={setBookmarks} setPosts={setPosts}  />
                             
                         ))
                     )}

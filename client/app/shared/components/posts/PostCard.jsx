@@ -297,7 +297,7 @@ export const PostCard = ({ post, user , loadingNewComment}) => {
                 <Image
                     src={post.userPicturePath ? post?.userPicturePath : "/images/profile-avatar-notfound.jpg"}
                     alt={`${post.firstName} ${post.lastName}`}
-                    className="absolute rounded-full z-10"
+                    className="absolute rounded-full z-10 object-cover"
                     fill
                 />
 
