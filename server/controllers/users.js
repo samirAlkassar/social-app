@@ -142,7 +142,7 @@ export const addRemoveBookmark = async (req, res) => {
 
 export const getBookmarks = async (req, res) => {
     try {
-      const id = req.user.id;
+      const {id} = req.params
       const user = await User.findById(id);
       const bookmarks = await Promise.all(
           user.bookmarks.map((id)=> Post.findById(id))

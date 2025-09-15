@@ -7,7 +7,8 @@ import { useParams } from 'next/navigation'
 import { useUserContext } from '@/app/context/useUser';
 import { ProfileInfo } from '@/app/shared/components/profile/ProfileInfo';
 import { SettingsPanel } from '@/app/shared/components/profile/SettingsPanel';
-import Bookmarks from '@/app/bookmarks/page';
+import { Bookmarks } from '@/app/bookmarks/page';
+import { Bookmark, Heart, User } from 'lucide-react';
 
 const Profile = () => {
   const {user} = useUserContext();
@@ -16,6 +17,7 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState('profile');
   const [userPosts, setUserPosts] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
+  const [section, setSection] = useState("posts");
   const params = useParams();
 
   const Authorized = Boolean(user._id === userById?._id)
@@ -81,7 +83,7 @@ if (!userById) {
     <>
     <Navbar />
     <div className="min-h-screen bg-background max-w-2xl mx-auto">
-      <div className="max-w-4xl mx-auto sm:px-4 px-0 py-4">
+      <div className="max-w-4xl mx-auto sm:px-4 px-0 pb-0 pt-2">
         {/* Tab Navigation */}
         {Authorized && <div className="flex justify-center mb-2">
           <div className="bg-card rounded-xl p-1 border border-border">
@@ -112,7 +114,7 @@ if (!userById) {
 
 
         {/* Content */}
-        <div className="bg-card sm:rounded-xl border border-border sm:p-6 p-2">
+        <div className="bg-card sm:rounded-t-xl border border-border sm:p-6 p-2">
           {activeTab === 'profile' 
           ? <ProfileInfo 
             userById={userById} 
@@ -121,14 +123,47 @@ if (!userById) {
           : <SettingsPanel />}
         </div>
       </div>
-
-      {/* <UserFeed 
+      
+      {Authorized && <div className='flex max-w-[40rem] mx-auto w-full sm:rounded-b-xl overflow-clip border border-border bg-secondary'>
+        <button onClick={()=>{setSection("posts")}} 
+          className={`px-4 py-3 w-full active:scale-[98%] flex gap-1 items-center justify-center cursor-pointer ${
+            section === "posts" ? "bg-accent hover:bg-accent-hover" : "bg-secondary hover:bg-secondary-hover"
+          }`}>
+            <User size={20}/>
+            <p>Posts</p>
+        </button>
+        <button onClick={()=>{setSection("liked")}} 
+          className={`px-4 py-3 w-full active:scale-[98%] flex gap-1 items-center justify-center cursor-pointer ${
+            section === "liked" ? "bg-accent hover:bg-accent-hover" : "bg-secondary hover:bg-secondary-hover"
+          }`}>
+            <Heart size={20}/>
+            <p>Liked</p>
+          </button>
+        <button onClick={()=>{setSection("saved")}} 
+          className={`px-4 py-3 w-full active:scale-[98%] flex gap-1 items-center justify-center cursor-pointer ${
+            section === "saved" ? "bg-accent hover:bg-accent-hover" : "bg-secondary hover:bg-secondary-hover"
+          }`}>
+            <Bookmark size={20}/>
+            <p>Saved</p>
+        </button>
+      </div>}
+      {Authorized && section === "posts" ? 
+      <UserFeed 
         loadingPosts={loadingPosts} 
         setLoadingPosts={setLoadingPosts} 
         userPosts={userPosts} 
         setUserPosts={setUserPosts}
-        user={userById}/> */}
+        user={userById}/> :
+      <div className='flex flex-col gap-6 max-w-2xl w-full mx-auto sm:mt-4 mt-0 pb-6 sm:px-4 px-0'>
         <Bookmarks />
+      </div>
+    }
+      {!Authorized && <UserFeed 
+        loadingPosts={loadingPosts} 
+        setLoadingPosts={setLoadingPosts} 
+        userPosts={userPosts} 
+        setUserPosts={setUserPosts}
+        user={userById}/>}
     </div>
     </>
   );

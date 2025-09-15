@@ -73,7 +73,7 @@ export const UserFeed = ({userPosts, setUserPosts,loadingPosts, setLoadingPosts,
   return (
     <div className="flex flex-col gap-6 max-w-2xl w-full mx-auto mt-6 pb-6 sm:px-4 px-0">
       <div className="space-y-6">
-            {userPosts.map((post) => (
+            {!loadingPosts && userPosts.map((post) => (
               <PostCard key={post?._id} post={post} user={user}/>
             ))}
             {loadingPosts && (

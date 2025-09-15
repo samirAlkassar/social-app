@@ -10,18 +10,18 @@ import { ArrowLeftCircle } from "lucide-react";
 import { usePostsContext } from "../context/usePosts";
 import { Navbar } from "../shared/components/Navbar";
 
-const Bookmarks = () => {
+export const Bookmarks = () => {
     const {user} = useUserContext();
     const {bookmarks, setBookmarks} = useBookmarksContext();
     const {setPosts} = usePostsContext();
     const [loadingBookmarks, setLoadingBookmarks] = useState(false);
     const [bookmarksArray, setBookmarksArray] = useState([])
 
-    const getBookmarks = async () => {
+    const getBookmarks = async (id) => {
         try {
             setLoadingBookmarks(true);
             const token = await getCookies("token");
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/bookmarks`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/bookmarks/${id}`, {
                 method: "GET",
                 headers: {
                 "Content-Type": "application/json",
@@ -44,16 +44,13 @@ const Bookmarks = () => {
     }
 
     useEffect(()=>{
-        getBookmarks()
+        getBookmarks(user?._id)
     },[bookmarks])
 
 
     return (
         <>
-        <Navbar />
-        <div className="max-w-2xl mx-auto">
-            <h1 className="text-xl text-neutral-700 font-semibold text-center mt-4">Bookmarks</h1>
-            <a className="flex gap-2 items-center hover:text-cyan-800" href="/"><ArrowLeftCircle /> <span>go back</span></a>
+
             {loadingBookmarks ? (
                 <div className="space-y-6 my-6">
                     <PostSkeleton />
@@ -72,15 +69,29 @@ const Bookmarks = () => {
                                     <p className="text-base text-neutral-800">This post was deleted by the user ⚠️</p>
                                     <button className="text-sm">Remove</button>
                                 </div>:
-                                <PostCard key={post?._id} post={post} bookmarks={bookmarks} user={user} setBookmarks={setBookmarks} setPosts={setPosts}  />
+                                <PostCard key={post._id} post={post} bookmarks={bookmarks} user={user} setBookmarks={setBookmarks} setPosts={setPosts}  />
                             
                         ))
                     )}
                 </div>
             )}
-        </div>
+
         </>
     )
 }
 
-export default Bookmarks;
+
+const BookmarksPage = () => {
+    return (
+        <>
+            <Navbar />
+            <div className="flex flex-col gap-6 max-w-2xl w-full mx-auto mt-6 pb-6 sm:px-4 px-0">
+                <h1 className="text-xl text-neutral-700 font-semibold text-center mt-4">Bookmarks</h1>
+                <a className="flex gap-2 items-center hover:text-cyan-800" href="/"><ArrowLeftCircle /> <span>go back</span></a>
+                <Bookmarks />
+            </div>
+        </>
+    )
+}
+
+export default BookmarksPage;

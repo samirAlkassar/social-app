@@ -14,6 +14,6 @@ router.patch("/:id/:friendsId", verifyToken, addRemoveFriend);
 //add to bookmakrs
 router.patch("/bookmarks/:id/:postId",verifyToken, addRemoveBookmark);
 //get bookmarks
-router.get("/bookmarks", verifyToken, getBookmarks);
+router.get("/bookmarks/:id", verifyToken, getBookmarks);
 
 export default router;
