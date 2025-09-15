@@ -127,21 +127,21 @@ if (!userById) {
       {Authorized && <div className='flex max-w-[40rem] mx-auto w-full sm:rounded-b-xl overflow-clip border border-border bg-secondary'>
         <button onClick={()=>{setSection("posts")}} 
           className={`px-4 py-3 w-full active:scale-[98%] flex gap-1 items-center justify-center cursor-pointer ${
-            section === "posts" ? "bg-accent hover:bg-accent-hover" : "bg-secondary hover:bg-secondary-hover"
+            section === "posts" ? "bg-accent hover:bg-accent-hover text-white" : "bg-secondary hover:bg-secondary-hover text-text"
           }`}>
             <User size={20}/>
             <p>Posts</p>
         </button>
         <button onClick={()=>{setSection("liked")}} 
           className={`px-4 py-3 w-full active:scale-[98%] flex gap-1 items-center justify-center cursor-pointer ${
-            section === "liked" ? "bg-accent hover:bg-accent-hover" : "bg-secondary hover:bg-secondary-hover"
+            section === "liked" ? "bg-accent hover:bg-accent-hover text-white" : "bg-secondary hover:bg-secondary-hover text-text"
           }`}>
             <Heart size={20}/>
             <p>Liked</p>
           </button>
         <button onClick={()=>{setSection("saved")}} 
           className={`px-4 py-3 w-full active:scale-[98%] flex gap-1 items-center justify-center cursor-pointer ${
-            section === "saved" ? "bg-accent hover:bg-accent-hover" : "bg-secondary hover:bg-secondary-hover"
+            section === "saved" ? "bg-accent hover:bg-accent-hover text-white" : "bg-secondary hover:bg-secondary-hover text-text"
           }`}>
             <Bookmark size={20}/>
             <p>Saved</p>
@@ -157,7 +157,7 @@ if (!userById) {
       <div className='flex flex-col gap-6 max-w-2xl w-full mx-auto sm:mt-4 mt-0 pb-6 sm:px-4 px-0'>
         <Bookmarks />
       </div> : section === "liked" ?
-      <div className='flex items-center gap-1'><p>under construction</p> <Hammer size={20}/></div>:
+      <div className='flex items-center gap-1 w-full justify-center mt-2 text-text'><p className='text-lg'>Under construction</p> <Hammer size={20}/></div>:
       <div>error</div>
     }
       {!Authorized && <UserFeed 
