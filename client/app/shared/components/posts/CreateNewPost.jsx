@@ -96,9 +96,9 @@ const CreateNewPost = () => {
             </div>
         </div>
 
-        <div className={`fixed inset-0 z-10 flex items-center justify-center bg-black/50 transition-all duration-100 ease-in ${openCreatePostMenu? "opacity-100 visable" : "opacity-0 invisible"}`}>
-                <div className={`p-4 pt-3 bg-card sm:rounded-xl w-lg transform transition-all duration-75 ease-in sm:h-fit flex flex-col rounded-t-xl 
-                    ${openCreatePostMenu ? "sm:opacity-100 h-full sm:scale-100 sm:visable" : "sm:opacity-0 h-28 sm:scale-50 sm:invisible"}`}>
+        <div className={`fixed inset-0 z-10 flex sm:items-center items-end justify-center bg-black/50 transition-all duration-100 ease-in ${openCreatePostMenu? "opacity-100 visable" : "opacity-0 invisible"}`}>
+                <div className={`p-4 pt-3 bg-card sm:rounded-xl w-lg transform transition-all duration-100 ease-in sm:h-fit flex flex-col rounded-t-xl 
+                    ${openCreatePostMenu ? "sm:opacity-100 h-[95%] sm:scale-100 sm:visable" : "sm:opacity-0 h-0 sm:scale-50 sm:invisible"}`}>
                     <div className="grid grid-cols-3 border-b border-border pb-1">
                         <span />
                         <h2 className="grid-3 text-center text-text text-xl items-center flex justify-center">Create new post</h2>
