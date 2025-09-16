@@ -3,7 +3,6 @@
 import { useUserContext } from "@/app/context/useUser"; 
 import React,  {useEffect, useState} from "react";
 import getCookies from "@/app/actions/getCookies";
-import Dropzone from "react-dropzone";
 import { ProfileSection} from "../Sidebar.jsx";
 import { FriendsSection} from "../Friends";
 import useInfiniteScroll from "@/app/hooks/observer.js";
@@ -12,67 +11,24 @@ import PostCard from "./PostCard.jsx";
 import CreatPostSkeleton from "../../loading/CreatePostSkeleton.jsx";
 import { usePostsContext } from "@/app/context/usePosts.jsx";
 import { useRouter } from "next/navigation.js";
+import CreateNewPost from "./CreateNewPost.jsx";
 
 export const Posts = ({data, pagination, limit}) => {
-  const router = useRouter();
+
   const {user, loading} = useUserContext();
   const {posts, setPosts ,loadingPosts ,setLoadingPosts } = usePostsContext();
   const [hasMore, setHasMore] = useState(pagination.hasMore || false);
   const [page, setPage] = useState(pagination.page || 1);
   
   //new post
-  const [description, setDescription] = useState("");
-  const [imagePath, setImagePath] = useState("");
-  const [loadingNewPost, setLoadingNewPost] = useState(false);
+
   const [loadingNewComment, setLoadingNewComment] = useState(false);
 
   
 
   useEffect(()=>{setPosts(data)},[])
 
-  const createNewPost = async () => {
-    try {
-      setLoadingNewPost(true);
-      const token = await getCookies("token");
-      if (!token?.value) {
-        alert("You must be logged in to post.");
-        return;
-        }
-      const formData = new FormData();
-      formData.append("userId", user?._id);
-      formData.append("description", description);
-      if (imagePath) {
-        formData.append("image", imagePath);        
-      }
-
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${token?.value}`, 
-        },
-        body: formData,
-        cache: "no-store" 
-      });
-
-      if (!res.ok) {
-        const errorText = await res.text();
-        console.error("Server response:", res.status, errorText);
-        return;
-      }
-
-      const data = await res.json();
-
-      console.log(data)
-      setPosts(data);
-
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setDescription("");
-      setImagePath("");
-      setLoadingNewPost(false);
-    }
-  };
+  
 
 
   const getPosts = async (page, limit) => {
@@ -136,73 +92,12 @@ export const Posts = ({data, pagination, limit}) => {
 
           {/* Create Post Card */}
           
-          {loading? <CreatPostSkeleton /> : user ? 
-          <div className="bg-card/80 backdrop-blur-md border border-border/50 sm:rounded-2xl sm:px-6 px-4 sm:py-6 py-2 sm:pt-6 pt-4 shadow-sm mb-6">
-            <div className="flex items-start gap-3 mb-4">
-              
-              {loading? 
-              <div className="w-10 h-10 rounded-full border border-neutral-300/60 bg-neutral-300 animate-pulse" /> :
-              <img
-                  src={user?.picturePath ? user?.picturePath : "/images/profile-avatar-notfound.jpg"}
-                  alt={user?.fireName || "avatar image"}
-                  className="w-10 h-10 rounded-full border border-neutral-200/60 cursor-pointer"
-                  onClick={()=>{router.push(`/profile/${user?.firstName}_${user.lastName}/${user?._id}`)}}
-                />
-              }
-
-              <textarea
-                value={description}
-                onChange={(e)=>{setDescription(e.target.value)}}
-                type="text"
-                placeholder="What's on your mind?"
-                className="flex-1 px-4 py-3 rounded-xl max-h-28 min-h-14 bg-secondary border border-border/60 text-text placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-text/20 focus:border-transparent transition-all duration-200"
-              />
-            </div>
-            
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Dropzone
-                  acceptedFiles=".jpg,.jpeg,.png"
-                  multiple={false}
-                  onDrop={(acceptedFiles) => setImagePath(acceptedFiles[0])}>
-                  {({ getRootProps, getInputProps }) => (
-                    <button 
-                      {...getRootProps()}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-secondary text-text transition-all duration-200 text-sm cursor-pointer"
-                    >
-                      <input {...getInputProps()} name="image" />
-                      {imagePath ? (
-                        <div className="flex items-center gap-2">
-                          <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          <span>{imagePath.name}</span>
-                        </div>
-                      ) : (
-                        <>
-                          📷 Photo
-                        </>
-                      )}
-                    </button>
-                  )}
-                </Dropzone>
-                
-                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-secondary text-text transition-all duration-200 text-sm cursor-pointer">
-                  📍 Location
-                </button>
-                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-secondary text-text transition-all duration-200 text-sm cursor-pointer">
-                  😊 Feeling
-                </button>
-              </div>
-              
-              <button 
-                onClick={createNewPost} 
-                disabled={!description.trim()}
-                className="px-4 py-2 bg-neutral-900 hover:bg-neutral-800 disabled:bg-neutral-400 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all duration-200">
-                {loadingNewPost? "Posting..." : "Post"}
-              </button>
-            </div>
-          </div>: <p className="mb-3 px-2 md:px-0 text-sm md:text-base">login to be able to share Posts, <a href="/login" className="underline">Login</a></p>}
+          {loading? <CreatPostSkeleton /> : user 
+          ? <CreateNewPost />
+          : <p className="mb-3 px-2 md:px-0 text-sm md:text-base">
+            login to be able to share Posts, 
+            <a href="/login" className="underline">Login</a>
+            </p>}
 
           {/* Posts Feed */}
           <div className="sm:space-y-6 space-y-4">
