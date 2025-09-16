@@ -6,7 +6,7 @@ import Comment from "../models/Comment.js";
 // CREATE
 export const createPost = async (req, res) => {
   try {
-    const { userId, description } = req.body;
+    const { userId, description, postBackgroundMode = 0 } = req.body;
 
     // ✅ Find user
     const user = await User.findById(userId);
