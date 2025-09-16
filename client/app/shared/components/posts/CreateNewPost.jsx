@@ -105,7 +105,7 @@ const CreateNewPost = ({postBackgroundMode, setPostBackgroundMode, postBackgroun
         </div>
 
         <div className={`fixed inset-0 z-10 flex sm:items-center items-end justify-center bg-black/50 transition-all duration-100 ease-in ${openCreatePostMenu? "opacity-100 visable" : "opacity-0 invisible"}`}>
-                <div className={`p-4 pt-3 bg-card sm:rounded-xl w-lg transform transition-all sm:duration-75 duration-150 ease-in sm:h-fit flex flex-col rounded-t-xl 
+                <div className={`p-4 pt-3 bg-card sm:rounded-xl sm:w-lg w-full transform transition-all sm:duration-75 duration-150 ease-in sm:h-fit flex flex-col rounded-t-xl 
                     ${openCreatePostMenu ? "sm:opacity-100 h-[95%] sm:scale-100 sm:visable" : "sm:opacity-0 h-0 sm:scale-50 sm:invisible"}`}>
                     <div className="flex flex-col justify-between h-full">
                         <div>
