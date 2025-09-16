@@ -28,7 +28,7 @@ export const Posts = ({data, pagination, limit}) => {
   useEffect(()=>{setPosts(data)},[])
 
     const postBackgroundModes = {
-      0: "#ffffff", // plain white
+      0: "linear-gradient(#ffffff00)", // rich purple-blue
       1: "linear-gradient(135deg, #4e54c8, #8f94fb)", // rich purple-blue
       2: "linear-gradient(135deg, #ff758c, #ff7eb3)", // deep pink-magenta
       3: "linear-gradient(135deg, #2193b0, #6dd5ed)", // cool ocean blue

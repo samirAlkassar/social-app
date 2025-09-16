@@ -285,8 +285,6 @@ export const PostCard = ({ post, user , loadingNewComment, postBackgroundModes})
       }
     };
 
-
-    console.log("post mode:",post.postBackgroundMode)
     
     return (
         <div className="py-2 px-0 sm:px-6 sm:py-6 bg-card/80 backdrop-blur-md sm:border border-border border-t border-b md:rounded-xl sm:shadow-sm shadow-xs sm:hover:shadow-md transition-all duration-200">
@@ -336,7 +334,7 @@ export const PostCard = ({ post, user , loadingNewComment, postBackgroundModes})
 
         {/* Post Content style={{backgroundImage: `url('/post_backgrounds/2.png')`}} */}
         <div style={{backgroundImage: post.postBackgroundMode !== 0 ? postBackgroundModes[post.postBackgroundMode] : "none"}}  className={`${post.picturePath? "mb-0" : "mb-4"} ${ post.postBackgroundMode !== 0 && "flex items-center justify-center h-72 sm:rounded-lg "}`}>
-            <p className={`${post.postBackgroundMode !== 0 ? "sm:text-3xl text-2xl font-semibold text-background max-w-sm text-center" : "text-sm sm:text-base text-text"} sm:leading-relaxed leading-normal mb-2 px-2 sm:px-0 ${showMoreCaption? "" : "line-clamp-3"}`}>
+            <p className={`${post.postBackgroundMode !== 0 ? "sm:text-3xl text-2xl font-semibold text-white/85 max-w-lg text-center" : "text-sm sm:text-base text-text"} sm:leading-relaxed leading-normal mb-2 px-2 sm:px-0 ${showMoreCaption? "" : "line-clamp-3"}`}>
             {post.description} 
             </p>
             {captionLength > 310 && <button onClick={()=>{setShowMoreCaption(!showMoreCaption)}} className="mb-2 px-2 sm:px-0 text-sm underline cursor-pointer hover:text-cyan-700 text-cyan-600">{showMoreCaption? "show less" : "show more"}</button>}

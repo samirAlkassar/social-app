@@ -1,6 +1,6 @@
 import Dropzone from "react-dropzone";
 import { useUserContext } from "@/app/context/useUser"; 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import getCookies from "@/app/actions/getCookies";
 import { usePostsContext } from "@/app/context/usePosts.jsx";
@@ -62,14 +62,9 @@ const CreateNewPost = ({postBackgroundMode, setPostBackgroundMode, postBackgroun
     };
 
     const handlePostBackgroundMode = () => {
-        setPostBackgroundMode(prev => {
-            if (prev >= 9) return 0;
-            return prev + 1;
-        });
-        console.log(postBackgroundMode)
+        if (picture) {setPostBackgroundMode(0)}
+        setPostBackgroundMode(prev => (prev + 1) % 9); // This cycles through 0-8
     };
-
-
 
     return (
         <>
@@ -145,15 +140,15 @@ const CreateNewPost = ({postBackgroundMode, setPostBackgroundMode, postBackgroun
                                 </div>
                             </div>
 
-                            <div className={`relative ${picture ? "sm:h-15 h-full" : "sm:h-64 h-80"}`}>
+                            <div style={{backgroundImage: !picture && postBackgroundModes[postBackgroundMode]}} className={`relative ${picture ? "sm:h-15 h-full" : "sm:h-64 h-80"} ${ !picture && postBackgroundMode !== 0 && "flex justify-center items-center"} rounded-xl`}>
                                 <textarea
                                     value={description}
                                     onChange={(e)=>{setDescription(e.target.value)}}                            
                                     placeholder="What's on your mind?"
-                                    style={{backgroundImage: postBackgroundModes[postBackgroundMode]}}
-                                    className={`flex-1 px-4 py-3 font-normal sm:text-lg text-base resize-none rounded-xl w-full h-full placeholder-neutral-400 focus:outline-none ${postBackgroundMode === 8? "text-white":"text-text"}`}
+                                    
+                                    className={`${ !picture && postBackgroundMode !== 0 ? "sm:text-3xl text-2xl font-semibold max-w-lg text-center h-30 text-white" : "text-sm sm:text-base h-full"} flex-1 px-4 py-3 font-normal resize-none rounded-xl w-full placeholder-neutral-400 focus:outline-none`}
                                 />
-                                <button onClick={handlePostBackgroundMode} className="w-9 h-9 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg cursor-pointer active:scale-95 absolute bottom-2 right-2 border border-border-muted"></button>
+                                {!picture && <button onClick={handlePostBackgroundMode} className="w-9 h-9 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg cursor-pointer active:scale-95 absolute bottom-2 right-2 border border-border-muted"></button>}
                             </div>
                         </div>
 
