@@ -19,10 +19,10 @@ const PostSchema = new mongoose.Schema(
         picturePath: String,
         userPicturePath: String,
         postBackgroundMode: {
-            type: Number,
-            required: true,
-            min: 8,
-            default: 0
+        type: Number,
+            min: 0,     // lowest allowed mode
+            max: 8,     // highest allowed mode
+            default: 0, // start with white
         },
         likes: {
             type: Map,
