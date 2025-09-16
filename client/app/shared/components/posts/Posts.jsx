@@ -10,7 +10,6 @@ import PostSkeleton from "@/app/shared/loading/PostSkeleton.jsx";
 import PostCard from "./PostCard.jsx";
 import CreatPostSkeleton from "../../loading/CreatePostSkeleton.jsx";
 import { usePostsContext } from "@/app/context/usePosts.jsx";
-import { useRouter } from "next/navigation.js";
 import CreateNewPost from "./CreateNewPost.jsx";
 
 export const Posts = ({data, pagination, limit}) => {
@@ -19,7 +18,7 @@ export const Posts = ({data, pagination, limit}) => {
   const {posts, setPosts ,loadingPosts ,setLoadingPosts } = usePostsContext();
   const [hasMore, setHasMore] = useState(pagination.hasMore || false);
   const [page, setPage] = useState(pagination.page || 1);
-  
+  const [postBackgroundMode, setPostBackgroundMode] = useState(0)
   //new post
 
   const [loadingNewComment, setLoadingNewComment] = useState(false);
@@ -28,7 +27,17 @@ export const Posts = ({data, pagination, limit}) => {
 
   useEffect(()=>{setPosts(data)},[])
 
-  
+    const postBackgroundModes = {
+      0: "#ffffff", // plain white
+      1: "linear-gradient(135deg, #667eea, #764ba2)", // purple-blue
+      2: "linear-gradient(135deg, #ff9a9e, #fad0c4)", // pink fade
+      3: "linear-gradient(135deg, #a1c4fd, #c2e9fb)", // sky blue
+      4: "linear-gradient(135deg, #fbc2eb, #a6c1ee)", // pink-violet
+      5: "linear-gradient(135deg, #fddb92, #d1fdff)", // sunrise
+      6: "linear-gradient(135deg, #f6d365, #fda085)", // warm orange
+      7: "linear-gradient(135deg, #84fab0, #8fd3f4)", // mint aqua
+      8: "linear-gradient(135deg, #141414, #2c2c2c)"  // peachy
+  };
 
 
   const getPosts = async (page, limit) => {
@@ -93,7 +102,7 @@ export const Posts = ({data, pagination, limit}) => {
           {/* Create Post Card */}
           
           {loading? <CreatPostSkeleton /> : user 
-          ? <CreateNewPost />
+          ? <CreateNewPost  postBackgroundMode={postBackgroundMode} setPostBackgroundMode={setPostBackgroundMode} postBackgroundModes={postBackgroundModes} />
           : <p className="mb-3 px-2 md:px-0 text-sm md:text-base">
             login to be able to share Posts, 
             <a href="/login" className="underline">Login</a>

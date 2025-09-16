@@ -7,13 +7,14 @@ import { usePostsContext } from "@/app/context/usePosts.jsx";
 import { XIcon, ImageIcon, MapPin, Laugh } from "lucide-react";
 import Image from "next/image";
 
-const CreateNewPost = () => {
+const CreateNewPost = ({postBackgroundMode, setPostBackgroundMode, postBackgroundModes}) => {
     const {loading, user} = useUserContext();
     const {setPosts} = usePostsContext();
     const [description, setDescription] = useState("");
     const [loadingNewPost, setLoadingNewPost] = useState(false);
     const [picture, setPicture] = useState(null);
     const [openCreatePostMenu, setOpenCreatePostMenu] = useState(false);
+
     const router = useRouter();
     
     const createNewPost = async () => {
@@ -58,6 +59,17 @@ const CreateNewPost = () => {
         setLoadingNewPost(false);
         }
     };
+
+    const handlePostBackgroundMode = () => {
+        setPostBackgroundMode(prev => {
+            if (prev >= 9) return 0;
+            return prev + 1;
+        });
+        console.log(postBackgroundMode)
+    };
+
+
+
     return (
         <>
         <div className="bg-card/80 backdrop-blur-md border border-border/50 sm:rounded-2xl sm:px-6 px-4 sm:py-2 py-2 sm:pt-3 pt-4 shadow-sm mb-6">
@@ -97,101 +109,108 @@ const CreateNewPost = () => {
         </div>
 
         <div className={`fixed inset-0 z-10 flex sm:items-center items-end justify-center bg-black/50 transition-all duration-100 ease-in ${openCreatePostMenu? "opacity-100 visable" : "opacity-0 invisible"}`}>
-                <div className={`p-4 pt-3 bg-card sm:rounded-xl w-lg transform transition-all duration-100 ease-in sm:h-fit flex flex-col rounded-t-xl 
+                <div className={`p-4 pt-3 bg-card sm:rounded-xl w-lg transform transition-all sm:duration-75 duration-150 ease-in sm:h-fit flex flex-col rounded-t-xl 
                     ${openCreatePostMenu ? "sm:opacity-100 h-[95%] sm:scale-100 sm:visable" : "sm:opacity-0 h-0 sm:scale-50 sm:invisible"}`}>
-                    <div className="grid grid-cols-3 border-b border-border pb-1">
-                        <span />
-                        <h2 className="grid-3 text-center text-text text-xl items-center flex justify-center">Create new post</h2>
-                        <div className="flex justify-end">
-                            <button onClick={()=>{setOpenCreatePostMenu(false)}} className="hover:bg-secondary-hover flex items-center justify-center w-9 h-9 rounded-full cursor-pointer">
-                                <XIcon size={22}/>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="p-1 flex gap-2 pt-2">
-                        <div className="relative w-10 h-10 rounded-full overflow-clip  border border-neutral-200/60 cursor-pointer">
-                             <Image
-                                src={user?.picturePath ? user?.picturePath : "/images/profile-avatar-notfound.jpg"}
-                                alt={user?.fireName || "avatar image"} fill
-                                className="absoulte w-full h-full object-cover"
-                                onClick={() => { router.push(`/profile/${user?.firstName}_${user?.lastName}/${user?._id}`) }}
-                            />
-                        </div>
+                    <div className="flex flex-col justify-between h-full">
                         <div>
-                            <h4 
-                            onClick={() => { router.push(`/profile/${user?.firstName}_${user?.lastName}/${user?._id}`) }} 
-                            className="text-text text-base/tight">
-                                {user?.firstName} {user?.lastName}
-                            </h4>
-                            <select name="Friends" id="friends" className="text-xs bg-secondary-hover px-2 py-1 cursor-pointer rounded-md">
-                                <option value="Friends">Friends</option>
-                            </select>
+                            <div className="grid grid-cols-3 border-b border-border pb-1">
+                                <span />
+                                <h2 className="grid-3 text-center text-text sm:text-xl text-sm items-center flex justify-center">Create new post</h2>
+                                <div className="flex justify-end">
+                                    <button onClick={()=>{setOpenCreatePostMenu(false)}} className="hover:bg-secondary-hover flex items-center justify-center w-9 h-9 rounded-full cursor-pointer">
+                                        <XIcon size={22}/>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="p-1 flex gap-2 pt-2 mb-1">
+                                <div className="relative w-10 h-10 rounded-full overflow-clip  border border-neutral-200/60 cursor-pointer">
+                                        <Image
+                                        src={user?.picturePath ? user?.picturePath : "/images/profile-avatar-notfound.jpg"}
+                                        alt={user?.fireName || "avatar image"} fill
+                                        className="absoulte w-full h-full object-cover"
+                                        onClick={() => { router.push(`/profile/${user?.firstName}_${user?.lastName}/${user?._id}`) }}
+                                    />
+                                </div>
+                                <div>
+                                    <h4 
+                                    onClick={() => { router.push(`/profile/${user?.firstName}_${user?.lastName}/${user?._id}`) }} 
+                                    className="text-text text-base/tight">
+                                        {user?.firstName} {user?.lastName}
+                                    </h4>
+                                    <select name="Friends" id="friends" className="text-xs bg-secondary-hover px-2 py-1 cursor-pointer rounded-md">
+                                        <option value="Friends">Friends</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className={`relative ${picture ? "sm:h-15 h-full" : "sm:h-64 h-80"}`}>
+                                <textarea
+                                    value={description}
+                                    onChange={(e)=>{setDescription(e.target.value)}}                            
+                                    placeholder="What's on your mind?"
+                                    style={{backgroundImage: postBackgroundModes[postBackgroundMode]}}
+                                    className={`flex-1 px-4 py-3 font-normal sm:text-lg text-base resize-none rounded-xl w-full h-full placeholder-neutral-400 focus:outline-none ${postBackgroundMode === 8? "text-white":"text-text"}`}
+                                />
+                                <button onClick={handlePostBackgroundMode} className="w-9 h-9 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg cursor-pointer active:scale-95 absolute bottom-2 right-2 border border-border-muted"></button>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className={`${picture ? "sm:h-15 h-full" : "sm:h-40 h-full"}`}>
-                        <textarea
-                            value={description}
-                            onChange={(e)=>{setDescription(e.target.value)}}                            
-                            placeholder="What's on your mind?"
-                            className="flex-1 px-4 py-3 font-normal text-lg resize-none rounded-xl w-full h-full text-text placeholder-neutral-400 focus:outline-none"
-                        />
-                    </div>
+                        <div>
+                        {picture && (
+                            <div className="flex justify-center">
+                            <div className="relative w-full h-full mb-2">
+                                <img
+                                src={URL.createObjectURL(picture)}
+                                alt="Profile preview"
+                                className="object-cover w-full max-h-64 rounded-xl border-4 border-white shadow-lg"
+                                />
+                                <button
+                                type="button"
+                                onClick={() => setPicture(null)}
+                                className="absolute -top-2 -right-2 w-6 h-6 bg-red text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
+                                >
+                                ×
+                                </button>
+                            </div>
+                            </div>
+                        )}
+    
+                        <div className="grid grid-cols-3 gap-2 mb-3 mt-2">
+                                <Dropzone
+                                    acceptedFiles=".jpg,.jpeg,.png"
+                                    multiple={false}
+                                    onDrop={(acceptedFiles) => setPicture(acceptedFiles[0])}>
+                                    {({ getRootProps, getInputProps }) => (
+                                        <button
+                                            {...getRootProps()}
+                                            className="flex gap-2 items-center bg-primary/50 hover:bg-primary/40 rounded-lg p-1.5 cursor-pointer active:scale-[98%] justify-center">
+                                            <input {...getInputProps()} name="image" />
+                                                    <ImageIcon size={20}/>
+                                                    <p className="hidden sm:block">Add Image</p>
+                                        </button>
+                                    )}
+                                </Dropzone>
 
-                    {picture && (
-                        <div className="flex justify-center">
-                        <div className="relative w-full h-full mb-2">
-                            <img
-                            src={URL.createObjectURL(picture)}
-                            alt="Profile preview"
-                            className="object-cover rounded-xl border-4 border-white shadow-lg"
-                            />
-                            <button
-                            type="button"
-                            onClick={() => setPicture(null)}
-                            className="absolute -top-2 -right-2 w-6 h-6 bg-red text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
-                            >
-                            ×
+                            <button className="flex gap-2 items-center bg-red/50 hover:bg-red/40 rounded-lg p-1.5 cursor-pointer active:scale-[98%] justify-center">
+                                <MapPin  size={20}/>
+                                <p className="hidden sm:block">Location</p>
+                            </button>
+                            <button className="flex gap-2 items-center bg-amber-400/50 hover:bg-amber-200 rounded-lg p-1.5 cursor-pointer active:scale-[98%] justify-center">
+                                <Laugh  size={20}/>
+                                <p className="hidden sm:block">Add iamge</p>
+                            </button>
+                        </div>
+
+                        <div className="w-full">
+                            <button 
+                                onClick={createNewPost} 
+                                disabled={!description.trim()}
+                                className="px-4 py-2 w-full bg-neutral-900 cursor-pointer hover:bg-neutral-800 disabled:bg-neutral-400 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all duration-200">
+                                {loadingNewPost? "Posting..." : "Post"}
                             </button>
                         </div>
                         </div>
-                    )}
- 
-
-                    <div className="grid grid-cols-3 gap-2 mb-3">
-                            <Dropzone
-                                acceptedFiles=".jpg,.jpeg,.png"
-                                multiple={false}
-                                onDrop={(acceptedFiles) => setPicture(acceptedFiles[0])}>
-                                {({ getRootProps, getInputProps }) => (
-                                    <button
-                                        {...getRootProps()}
-                                        className="flex gap-2 items-center bg-primary/50 hover:bg-primary/40 rounded-lg p-1.5 cursor-pointer active:scale-[98%] justify-center">
-                                        <input {...getInputProps()} name="image" />
-                                                <ImageIcon size={20}/>
-                                                <p>Add Image</p>
-                                    </button>
-                                )}
-                            </Dropzone>
-
-                        <button className="flex gap-2 items-center bg-red/50 hover:bg-red/40 rounded-lg p-1.5 cursor-pointer active:scale-[98%] justify-center">
-                            <MapPin  size={20}/>
-                            <p>Location</p>
-                        </button>
-                        <button className="flex gap-2 items-center bg-amber-400/50 hover:bg-amber-200 rounded-lg p-1.5 cursor-pointer active:scale-[98%] justify-center">
-                            <Laugh  size={20}/>
-                            <p>Add iamge</p>
-                        </button>
-                    </div>
-
-                    <div className="w-full">
-                        <button 
-                            onClick={createNewPost} 
-                            disabled={!description.trim()}
-                            className="px-4 py-2 w-full bg-neutral-900 cursor-pointer hover:bg-neutral-800 disabled:bg-neutral-400 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all duration-200">
-                            {loadingNewPost? "Posting..." : "Post"}
-                        </button>
                     </div>
                 </div>
         </div>
