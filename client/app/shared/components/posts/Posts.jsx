@@ -29,14 +29,14 @@ export const Posts = ({data, pagination, limit}) => {
 
     const postBackgroundModes = {
       0: "#ffffff", // plain white
-      1: "linear-gradient(135deg, #667eea, #764ba2)", // purple-blue
-      2: "linear-gradient(135deg, #ff9a9e, #fad0c4)", // pink fade
-      3: "linear-gradient(135deg, #a1c4fd, #c2e9fb)", // sky blue
-      4: "linear-gradient(135deg, #fbc2eb, #a6c1ee)", // pink-violet
-      5: "linear-gradient(135deg, #fddb92, #d1fdff)", // sunrise
-      6: "linear-gradient(135deg, #f6d365, #fda085)", // warm orange
-      7: "linear-gradient(135deg, #84fab0, #8fd3f4)", // mint aqua
-      8: "linear-gradient(135deg, #141414, #2c2c2c)"  // peachy
+      1: "linear-gradient(135deg, #4e54c8, #8f94fb)", // rich purple-blue
+      2: "linear-gradient(135deg, #ff758c, #ff7eb3)", // deep pink-magenta
+      3: "linear-gradient(135deg, #2193b0, #6dd5ed)", // cool ocean blue
+      4: "linear-gradient(135deg, #c471f5, #fa71cd)", // violet-pink neon
+      5: "linear-gradient(135deg, #f7971e, #ffd200)", // warm golden sunset
+      6: "linear-gradient(135deg, #f53844, #42378f)", // fiery red to dark purple
+      7: "linear-gradient(135deg, #11998e, #38ef7d)", // vibrant teal-green
+      8: "linear-gradient(135deg, #0f2027, #203a43, #2c5364)" // dark sleek gradient
   };
 
 
@@ -111,7 +111,7 @@ export const Posts = ({data, pagination, limit}) => {
           {/* Posts Feed */}
           <div className="sm:space-y-6 space-y-4">
             {posts.map((post) => (
-              <PostCard key={post?._id} post={post} setPosts={setPosts} user={user} loadingNewComment={loadingNewComment}/>
+              <PostCard key={post?._id} post={post} setPosts={setPosts} user={user} loadingNewComment={loadingNewComment} postBackgroundModes={postBackgroundModes}/>
             ))} 
             {loadingPosts && (
               <>

@@ -1,6 +1,6 @@
 import Dropzone from "react-dropzone";
 import { useUserContext } from "@/app/context/useUser"; 
-import { use, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import getCookies from "@/app/actions/getCookies";
 import { usePostsContext } from "@/app/context/usePosts.jsx";
@@ -28,6 +28,7 @@ const CreateNewPost = ({postBackgroundMode, setPostBackgroundMode, postBackgroun
         const formData = new FormData();
         formData.append("userId", user?._id);
         formData.append("description", description);
+        formData.append("postBackgroundMode", postBackgroundMode);
         if (picture) {
             formData.append("image", picture);        
         }
