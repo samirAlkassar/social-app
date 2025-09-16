@@ -29,6 +29,7 @@ export const createPost = async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       location: user.location,
+      postBackgroundMode,
       description,
       userPicturePath: user.picturePath, // profile picture from user
       picturePath: imageUrl, // ✅ Cloudinary URL (or empty if no image)
