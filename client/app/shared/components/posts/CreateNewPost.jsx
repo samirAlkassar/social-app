@@ -6,8 +6,9 @@ import getCookies from "@/app/actions/getCookies";
 import { usePostsContext } from "@/app/context/usePosts.jsx";
 import { XIcon, ImageIcon, MapPin, Laugh } from "lucide-react";
 import Image from "next/image";
+import postBackgroundModes from "../../PostBackgroundModes";
 
-const CreateNewPost = ({postBackgroundMode, setPostBackgroundMode, postBackgroundModes}) => {
+const CreateNewPost = ({postBackgroundMode, setPostBackgroundMode}) => {
     const {loading, user} = useUserContext();
     const {setPosts} = usePostsContext();
     const [description, setDescription] = useState("");

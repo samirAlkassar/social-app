@@ -14,8 +14,9 @@ import LikeButton from "../../ui/LikeButton.jsx";
 import BookmarksButton from "../../ui/BookmarksButton.jsx";
 import Image from "next/image.js";
 import { useRouter } from "next/navigation.js";
+import postBackgroundModes from "../../PostBackgroundModes.js";
 
-export const PostCard = ({ post, user , loadingNewComment, postBackgroundModes}) => {
+export const PostCard = ({ post, user}) => {
     const router = useRouter();
     const {toggleAddFriend} = useFreindsContext();
     const {bookmarks, setBookmarks} = useBookmarksContext();
@@ -32,6 +33,7 @@ export const PostCard = ({ post, user , loadingNewComment, postBackgroundModes})
     const [showLikes, setShowLikes] = useState(false);
     const [showPostBottomMenu, setShowPostBottomMenu] = useState(false);
     const [loadingDeletPost, setLoadingDeletPost] = useState(false);
+    const [loadingNewComment, setLoadingNewComment] = useState(false);
 
     
 
@@ -255,6 +257,7 @@ export const PostCard = ({ post, user , loadingNewComment, postBackgroundModes})
 
     const addComment = async (postId, comment) => {
       try {
+      setLoadingNewComment(true)
       const token = await getCookies("token");
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}/comment`, {
         method: "PATCH",
@@ -282,6 +285,8 @@ export const PostCard = ({ post, user , loadingNewComment, postBackgroundModes})
       return updatedPost;
       } catch (error) {
       console.log(error);
+      } finally{
+        setLoadingNewComment(false)
       }
     };
 
