@@ -54,14 +54,14 @@ const Story = () => {
                 <div className="absolute top-1 left-1">
                     <div className="relative w-8 h-8 overflow-clip rounded-full border-2 border-primary">
                         <Image 
-                            src={user.picturePath} 
+                            src={user?.picturePath || "/images/profile-avatar-notfound.jpg"} 
                             alt="User Image"
                             fill
                             className="object-cover absolute"/>
                     </div>
                 </div>
 
-                <h1 className="absolute bottom-1 right-1 text-white sm:text-sm text-xs">{user.firstName} {user.lastName}</h1>
+                <h1 className="absolute bottom-1 right-1 text-white sm:text-sm text-xs">{user?.firstName || "user"} {user?.lastName || "name"}</h1>
             </div>
     )
 }
