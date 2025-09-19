@@ -20,7 +20,7 @@ const Profile = () => {
   const [section, setSection] = useState("posts");
   const params = useParams();
 
-  const Authorized = Boolean(user._id === userById?._id)
+  const Authorized = Boolean(user?._id === userById?._id)
   const [mounted, setMounted] = useState(false);
 
 
@@ -33,8 +33,8 @@ const Profile = () => {
         console.error("Failed to get user", res.status, errText);
         return;
       }
-      const user = await res.json();
-      setUserById(user.user)
+      const data = await res.json();
+      setUserById(data.user)
     } catch (error) {
     console.log(error);
     } finally {
@@ -55,6 +55,7 @@ const Profile = () => {
     return null; // or loading skeleton
   }
 
+  console.log("userById:", userById)
 
 if (loading) {
   return (
@@ -158,7 +159,7 @@ if (!userById) {
         <Bookmarks />
       </div> : section === "liked" ?
       <div className='flex items-center gap-1 w-full justify-center mt-2 text-text'><p className='text-lg'>Under construction</p> <Hammer size={20}/></div>:
-      <div>error</div>
+      <div></div>
     }
       {!Authorized && <UserFeed 
         loadingPosts={loadingPosts} 

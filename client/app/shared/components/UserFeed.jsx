@@ -1,6 +1,5 @@
 import PostCard from "./posts/PostCard";
 import React, { useState, useEffect, useRef } from "react";
-import getCookies from "@/app/actions/getCookies";
 import useInfiniteScroll from "@/app/hooks/observer.js";
 import PostSkeleton from "@/app/shared/loading/PostSkeleton.jsx";
 
@@ -10,7 +9,7 @@ export const UserFeed = ({userPosts, setUserPosts,loadingPosts, setLoadingPosts,
   const [hydrated, setHydrated] = useState(false);
   const limit = 5;
 
-  const loaderRef = useRef(null); // target div for IntersectionObserver
+  const loaderRef = useRef(null);
 
   useEffect(() => {
     setHydrated(true);
@@ -19,13 +18,11 @@ export const UserFeed = ({userPosts, setUserPosts,loadingPosts, setLoadingPosts,
   const getUserPosts = async (pageNum, limit) => {
     try {
         setLoadingPosts(true);
-        const token = await getCookies("token");
         const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/posts/${user._id}/posts?limit=${limit}&page=${pageNum}`,
         {
             method: "GET",
             headers: {
-            Authorization: `Bearer ${token?.value}`,
             },
         }
         );
